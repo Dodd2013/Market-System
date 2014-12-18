@@ -105,7 +105,7 @@ public class InitAll {
             DataOnly.clientServer=new ClientServerClass();
             DataOnly.clientServerOrNot=true;
         } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null,GetLanguageName.getName("conDatabaseF"));
+            JOptionPane.showMessageDialog(null,GetLanguageName.getName("conServerF"));
             System.out.println(ex.getMessage());
             System.exit(0);
         }

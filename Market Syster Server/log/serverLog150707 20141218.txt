@@ -1,0 +1,6 @@
+15:06:19 2014-12-18:Waiting for the connection！
+15:06:19 2014-12-18:The server is  on!！
+15:06:23 2014-12-18:Waiting for the connection！
+15:06:38 2014-12-18:UserName:陈道想Login！
+15:07:04 2014-12-18:UserName:陈道想Exit!
+

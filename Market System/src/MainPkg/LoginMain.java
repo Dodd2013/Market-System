@@ -208,13 +208,13 @@ public class LoginMain {
         
     }
     private void fristConDBAndServer(){
-        msg=new JLabel(GetLanguageName.getName("conServer"));
+        msg=new JLabel(GetLanguageName.getName("conDatabase"));
         msg.setBounds(60, 225, 200, 30);
         loginFrame.add(msg);
         if(InitAll.ConnectedtoDataBase()){
             msg.setText(GetLanguageName.getName("conSuccess"));
         }
-        msg.setText(GetLanguageName.getName("conDatabase"));
+        msg.setText(GetLanguageName.getName("conServer"));
         if(InitAll.ClientServer()){
             msg.setText(GetLanguageName.getName("conSuccess"));
         }

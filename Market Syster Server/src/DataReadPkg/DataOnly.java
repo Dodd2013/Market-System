@@ -25,7 +25,7 @@ public class DataOnly {
     public static Hashtable<Integer, UserInfo> userInfoHashtable=new Hashtable<>();
     public static PrintWriter out;
     public static String getNowTime(){
-       return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+       return new SimpleDateFormat("HH:mm:ss yyyy-MM-dd").format(new Date());
     }
     public static Locale locale=new Locale("en", "US");
 }
