@@ -225,6 +225,7 @@ class LanguageChose extends JFrame{
                         DataOnly.locale=new Locale("zh","CN");
                     }
                     new ServerMainFrame();
+                    LanguageChose.this.dispose();
                 }
             });
             this.setFocusable(true);

@@ -3,12 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/Dodd's%20ERP/Dodd's%20ERP/src/Language_zh_CN.properties</file>
-            <file>file:/E:/Dodd's%20ERP/Dodd's%20ERP/src/Language_en_US.properties</file>
-            <file>file:/E:/Dodd's%20ERP/Dodd's%20ERP/src/FirstPkg/CompanyPanel.java</file>
-            <file>file:/E:/Dodd's%20ERP/Dodd's%20ERP/src/MainPkg/GetPanel.java</file>
-            <file>file:/E:/Dodd's%20ERP/Dodd's%20ERP/src/MainPkg/InitAll.java</file>
-            <file>file:/E:/Dodd's%20ERP/Dodd's%20ERP/src/yanshi/ChatClientFrame.java</file>
+            <file>file:/E:/GitHub/Market-System/Market%20System/src/MainPkg/InitAll.java</file>
+            <file>file:/E:/GitHub/Market-System/Market%20System/src/MainPkg/LoginMain.java</file>
+            <file>file:/E:/GitHub/Market-System/Market%20System/src/DataBasePkg/ConnectedDatabase.java</file>
+            <file>file:/E:/GitHub/Market-System/Market%20System/src/Language_en_US.properties</file>
         </group>
     </open-files>
 </project-private>
