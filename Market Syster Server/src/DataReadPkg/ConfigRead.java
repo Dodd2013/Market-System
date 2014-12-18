@@ -25,7 +25,7 @@ public class ConfigRead {
             String value = props.getProperty(key);
             return value;
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null,"配置文件读取错误！！");
+            JOptionPane.showMessageDialog(null,GetLanguageName.getName("errorConfig"));
             System.exit(0);
             return null;
         }

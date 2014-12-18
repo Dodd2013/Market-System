@@ -51,7 +51,7 @@ public class ServerStart extends Thread{
                 socketInfo=new SocketInfo(s,out,in);
                 DataOnly.socketInfoHashtable.put(count,socketInfo);
                 new GetMessageThread(socketInfo,mainFrame,count).start();
-                mainFrame.jTextArea.append(DataOnly.getNowTime()+":第"+count+"个连接已建立！\n");
+                //mainFrame.jTextArea.append(DataOnly.getNowTime()+":第"+count+"个连接已建立！\n");
                 count++;
             }
         } catch (IOException ex) {
@@ -95,21 +95,22 @@ public class ServerStart extends Thread{
                         } catch (IOException e) {
                             System.out.println(e.getMessage());
                             if (e.getMessage().equals("Read timed out")) {
-                                mainFrame.jTextArea.append(DataOnly.getNowTime()+":第"+socketId+"个链接验证超时！不是ERP系统！\n");
+                                //mainFrame.jTextArea.append(DataOnly.getNowTime()+":第"+socketId+"个链接验证超时！不是ERP系统！\n");
                             }
                         }
                         if(msg!=null||msg.equals("LINK:"+ConfigRead.readValue(DataOnly.config, "LinkPassWord"))){
-                            mainFrame.jTextArea.append(DataOnly.getNowTime()+":第"+socketId+"个链接验证成功,是ERP系统！\n");
+                            //mainFrame.jTextArea.append(DataOnly.getNowTime()+":第"+socketId+"个链接验证成功,是ERP系统！\n");
                             socketInfo.socket.setSoTimeout(0);
                             isFirst=false;
                         }else if(msg!=null||msg.equals("RemoteControl:"+ConfigRead.readValue(DataOnly.config, "LinkPassWord"))){
-                            mainFrame.jTextArea.append(DataOnly.getNowTime()+":第"+socketId+"个链接验证成功,是远程系统！\n");
+                            //mainFrame.jTextArea.append(DataOnly.getNowTime()+":第"+socketId+"个链接验证成功,是远程系统！\n");
                         }else{
                             
-                            if(msg!=null&&msg.startsWith("LINK:"))
-                            mainFrame.jTextArea.append(DataOnly.getNowTime()+":第"+socketId+"个链接验证密钥错误！是ERP系统！\n");
+                            if(msg!=null&&msg.startsWith("LINK:")){
+                                 //mainFrame.jTextArea.append(DataOnly.getNowTime()+":第"+socketId+"个链接验证密钥错误！是ERP系统！\n");
+                            }
                             else{
-                                 mainFrame.jTextArea.append(DataOnly.getNowTime()+":第"+socketId+"个链接验证错误！不是ERP系统！\n");
+                                 //mainFrame.jTextArea.append(DataOnly.getNowTime()+":第"+socketId+"个链接验证错误！不是ERP系统！\n");
                             }
                             isLink=false;
                             socketInfo.in.close();

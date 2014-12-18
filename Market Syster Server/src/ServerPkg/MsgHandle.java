@@ -7,6 +7,7 @@
 package ServerPkg;
 
 import DataReadPkg.DataOnly;
+import DataReadPkg.GetLanguageName;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Vector;
@@ -20,7 +21,7 @@ import java.util.logging.Logger;
 public class MsgHandle {
     public static void dealWithMsg(String msg,ServerMainFrame mainFrame,int socketId,Thread thread){
         if(msg.equals("EXIT")){
-            mainFrame.jTextArea.append("第"+socketId+"个链接退出!");
+            //mainFrame.jTextArea.append("第"+socketId+"个链接退出!");
             exit(socketId,thread,mainFrame);
         }
         if(msg.startsWith("LOGIN:")){
@@ -46,7 +47,7 @@ public class MsgHandle {
                 v.add(Integer.toString(socketId));
                 //"账户名称","账户ID","外网地址","内网地址","加入时间","Sockid"
                 mainFrame.tableModel.addRow(v);
-                mainFrame.jTextArea.append(DataOnly.getNowTime()+":用户"+userName+"登录！\n");
+                mainFrame.jTextArea.append(DataOnly.getNowTime()+":"+GetLanguageName.getName("userName")+":"+userName+GetLanguageName.getName("login")+"！\n");
                 PrintWriter out= DataOnly.socketInfoHashtable.get(socketId).out;
                 out.println("CMD:LoginOK");
                 out.flush();
@@ -59,7 +60,7 @@ public class MsgHandle {
         }
         if(msg.startsWith("LOGOUT")){
             String userName=DataOnly.userInfoHashtable.get(socketId).userName;
-            mainFrame.jTextArea.append(DataOnly.getNowTime()+":用户"+userName+"退出!\n");
+            mainFrame.jTextArea.append(DataOnly.getNowTime()+":"+GetLanguageName.getName("userName")+":"+userName+GetLanguageName.getName("exit")+"!\n");
             exit(socketId,thread,mainFrame);
         }
     }
