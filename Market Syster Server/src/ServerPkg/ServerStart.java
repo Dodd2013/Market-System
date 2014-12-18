@@ -8,6 +8,7 @@ package ServerPkg;
 
 import DataReadPkg.ConfigRead;
 import DataReadPkg.DataOnly;
+import DataReadPkg.GetLanguageName;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
@@ -42,8 +43,8 @@ public class ServerStart extends Thread{
         ByteArrayInputStream baIn;
         try {
             serverSocket=new ServerSocket(45678);
-            while(true){
-                mainFrame.jTextArea.append(DataOnly.getNowTime()+":等待连接！\n");
+            while(!interrupted()){
+                mainFrame.jTextArea.append(DataOnly.getNowTime()+":"+GetLanguageName.getName("waitingConnection")+"！\n");
                 s=serverSocket.accept();
                 out=new PrintWriter(new OutputStreamWriter(s.getOutputStream(), "UTF-8"),true);
                 in=new BufferedReader(new InputStreamReader(s.getInputStream(),"UTF-8"));

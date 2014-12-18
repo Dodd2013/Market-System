@@ -18,22 +18,21 @@ import java.util.logging.Logger;
  * @author Dodd-pc
  */
 public class RemetoControlListener extends Thread{
-
+    ServerSocket serverSocket = null;
     @Override
     public void run() {
-        ServerSocket serverSocket = null;
         try {
             serverSocket = new ServerSocket(18080);
         } catch (IOException ex) {
             Logger.getLogger(RemetoControlListener.class.getName()).log(Level.SEVERE, null, ex);
         }
-        while(true){
+        while(!isInterrupted()){
             try {
                 Socket s=serverSocket.accept();
                 new RCClient(s).start();
-                System.out.println("fasgdsafewwe");
+              //  System.out.println("fasgdsafewwe");
             } catch (IOException ex) {
-                Logger.getLogger(RemetoControlListener.class.getName()).log(Level.SEVERE, null, ex);
+                //Logger.getLogger(RemetoControlListener.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }

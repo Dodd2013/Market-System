@@ -9,10 +9,10 @@ package DataReadPkg;
 import ServerPkg.SocketInfo;
 import ServerPkg.UserInfo;
 import java.io.PrintWriter;
-import java.net.Socket;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Hashtable;
+import java.util.Locale;
 
 /**
  *
@@ -27,4 +27,5 @@ public class DataOnly {
     public static String getNowTime(){
        return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
     }
+    public static Locale locale=new Locale("en", "US");
 }

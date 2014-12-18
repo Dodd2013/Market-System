@@ -7,6 +7,7 @@
 package ServerPkg;
 
 import DataReadPkg.DataOnly;
+import DataReadPkg.GetLanguageName;
 import java.awt.BorderLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -55,7 +56,7 @@ public class ServerMainFrame extends JFrame{
    public RemetoControlListener rcl;
    public JComboBox comboBox;
    public ServerMainFrame(){
-       super("Dodd's ERP server");
+       super(GetLanguageName.getName("systemName"));
        final ServerMainFrame self=this;
        setSize(Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit().getScreenSize().height-Toolkit.getDefaultToolkit().getScreenInsets(this.getGraphicsConfiguration()).bottom);
        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -77,41 +78,42 @@ public class ServerMainFrame extends JFrame{
        upJPanel.setLayout(new BorderLayout(10,10));
        //init jmb
        jmb=new JMenuBar();
-       JMenu mainMenu=new JMenu("主菜单");
+       JMenu mainMenu=new JMenu(GetLanguageName.getName("mainMenu"));
        jmb.add(mainMenu);
-       JMenuItem exitItem=new JMenuItem("退出");
+       JMenuItem exitItem=new JMenuItem(GetLanguageName.getName("exit"));
        mainMenu.add(exitItem);
        this.setJMenuBar(jmb);
        //init startbtn
-       startButton=new JButton("启动服务器");
+       startButton=new JButton(GetLanguageName.getName("serverStart"));
        startButton.addActionListener(new ActionListener() {
 
            @Override
            public void actionPerformed(ActionEvent e) {
-               if(startButton.getText().equals("启动服务器")){
+               if(startButton.getText().equals(GetLanguageName.getName("serverStart"))){
                   sst= new ServerStart(self);
                   rcl=new RemetoControlListener();
                   rcl.start();
                   sst.start();
-                  staLabel.setText("服务器已开启！");
-                  jTextArea.append(DataOnly.getNowTime()+":服务器已开启！\n");
-                  startButton.setText("关闭服务器");
+                  staLabel.setText(GetLanguageName.getName("serverOn"));
+                  jTextArea.append(DataOnly.getNowTime()+":"+GetLanguageName.getName("serverOn")+"！\n");
+                  startButton.setText(GetLanguageName.getName("serverStop"));
                }
                else{
                    try {
                        sst.serverSocket.close();
                        sst.interrupt();
                        rcl.interrupt();
-                       staLabel.setText("服务器已关闭！");
-                       jTextArea.append(DataOnly.getNowTime()+":服务器已关闭！\n");
-                       startButton.setText("启动服务器");
+                       rcl.serverSocket.close();
+                       staLabel.setText(GetLanguageName.getName("serverOff"));
+                       jTextArea.append(DataOnly.getNowTime()+":"+GetLanguageName.getName("serverOff")+"！\n");
+                       startButton.setText(GetLanguageName.getName("serverStart"));
                        for(SocketInfo s:DataOnly.socketInfoHashtable.values()){
                         PrintWriter out=s.out;
                         out.println("CMD:exit");
                         out.flush();
                     }
                    } catch (IOException ex) {
-                       JOptionPane.showMessageDialog(self, "关闭端口失败！");
+                       JOptionPane.showMessageDialog(self, GetLanguageName.getName("closePortFailure"));
                    }
                }
                
@@ -121,7 +123,7 @@ public class ServerMainFrame extends JFrame{
        downJPanel=new JPanel();
        downJPanel.setLayout(new BorderLayout(10,10));
        //创建状态标签
-       staLabel=new JLabel("服务器未开启！");
+       staLabel=new JLabel(GetLanguageName.getName("serverOff"));
        downJPanel.add(staLabel,BorderLayout.SOUTH);
        //init combox
        JPanel jp=new JPanel(new BorderLayout());
@@ -139,14 +141,14 @@ public class ServerMainFrame extends JFrame{
        jp.add(cmdField,BorderLayout.CENTER);
        upJPanel.add(jp,BorderLayout.CENTER);
        //init sendbtn
-       sendButton=new JButton("发送");
+       sendButton=new JButton(GetLanguageName.getName("send"));
        sendButton.addActionListener(new ActionListener() {
            @Override
            public void actionPerformed(ActionEvent e) {
                if(table.getSelectedRowCount()==0){
-                   JOptionPane.showMessageDialog(rootPane, "请选择发送对象！");
+                   JOptionPane.showMessageDialog(rootPane, GetLanguageName.getName("choseOneUser"));
                }else if(cmdField.getText().equals("")){
-                   JOptionPane.showMessageDialog(rootPane, "请输入内容！");
+                   JOptionPane.showMessageDialog(rootPane, GetLanguageName.getName("enterTheText"));
                }else if((((String)comboBox.getSelectedItem()).equals("CMD:")&&IsCMD.isCmd(cmdField.getText()))||((String)comboBox.getSelectedItem()).equals("MSG:")){
                    
                    model=table.getModel();
@@ -165,7 +167,7 @@ public class ServerMainFrame extends JFrame{
                    out.println((String)comboBox.getSelectedItem()+cmdField.getText());
                    out.flush();
                }else{
-                   JOptionPane.showMessageDialog(rootPane, "请输入正确的命令！");
+                   JOptionPane.showMessageDialog(rootPane, GetLanguageName.getName("enterTheRightCMD"));
                }
            }
        });
@@ -177,7 +179,8 @@ public class ServerMainFrame extends JFrame{
        tjsp=new JScrollPane(jTextArea);
        fiSplitPane.setRightComponent(tjsp);
        //
-       String[] columnNames={"账户名称","账户ID","外网地址","内网地址","加入时间","SockId"};
+       String[] columnNames={GetLanguageName.getName("userName"),GetLanguageName.getName("userId"),
+           GetLanguageName.getName("networkAddress"),GetLanguageName.getName("LANAddress"),GetLanguageName.getName("loginTime"),"SockId"};
        tableModel= new DefaultTableModel(columnNames, 0);
        //init JTable
        table=new JTable(tableModel);
