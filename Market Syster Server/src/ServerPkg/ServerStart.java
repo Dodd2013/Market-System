@@ -56,7 +56,7 @@ public class ServerStart extends Thread{
             }
         } catch (IOException ex) {
             if(!ex.getMessage().equals("socket closed"))
-            JOptionPane.showMessageDialog(null, "无法在该端口创建服务！"+ex.getMessage());
+            JOptionPane.showMessageDialog(null, GetLanguageName.getName("portIsUsed")+"!"+ex.getMessage());
             else{
                 DataOnly.socketInfoHashtable.remove(count);
             }

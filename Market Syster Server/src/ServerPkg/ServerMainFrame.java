@@ -9,6 +9,8 @@ package ServerPkg;
 import DataReadPkg.DataOnly;
 import DataReadPkg.GetLanguageName;
 import java.awt.BorderLayout;
+import java.awt.Button;
+import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,6 +18,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Locale;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -194,8 +197,58 @@ public class ServerMainFrame extends JFrame{
        add(downJPanel,BorderLayout.CENTER);
        setVisible(true);
    }
+   
+   
    public static void main(String[] args) {
-        new ServerMainFrame();
+        new LanguageChose();
     }
-    
 }
+class LanguageChose extends JFrame{
+        public LanguageChose(){
+            this.setSize(300, 100);
+            this.setLayout(null);
+            final JButton okButton=new JButton("OK");
+            this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            String[] item=new String[]{
+              "English","Chinese"  
+            };
+            final JComboBox<String> comboBox=new JComboBox<>(item);
+            comboBox.setSize(100, 30);
+            comboBox.setLocation(50, 20);
+            okButton.setSize(80, 30);
+            okButton.addActionListener(new ActionListener() {
+
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if(comboBox.getSelectedItem().equals("English"))
+                    {
+                        DataOnly.locale=new Locale("en", "US");
+                    }else{
+                        DataOnly.locale=new Locale("zh","CN");
+                    }
+                    new ServerMainFrame();
+                }
+            });
+            this.setFocusable(true);
+            this.addKeyListener(new KeyAdapter() {
+                public void keyTyped(KeyEvent e) {
+                    if(e.getKeyChar()=='\n'){
+                        okButton.doClick();
+                    }
+                }
+            });
+            comboBox.addKeyListener(new KeyAdapter() {
+                public void keyTyped(KeyEvent e) {
+                    if(e.getKeyChar()=='\n'){
+                        okButton.doClick();
+                    }
+                }
+            });
+            okButton.setLocation(180, 20);
+            this.add(okButton);
+            this.add(comboBox);
+            this.setResizable(false);
+            this.setLocationRelativeTo(null);
+            this.setVisible(true);
+        }
+    }
