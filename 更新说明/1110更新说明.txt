@@ -1,0 +1,10 @@
+1.继续将导航树和导航框完善，目前已经全部ok，ERP框架部分到此一个段落，接下去就是模块化了。
+2.今日重点erp服务器和客户端的构建，应用套接字类，准备实现服务器发送命令（各种命令，想做什么做什么，嘿嘿），客户端执行，并且后期实现客户端之间的互相实时通信
+
+新建了一个项目，此项目为服务器端，Dodd'S ERP server   
+		ServerStart类，套接字实现类
+		ServerMainFrame服务器界面
+
+客户端新增一个包：ClientServerPkg
+		ClientServerClass 连接服务器类
+		ServerCMD  为后期服务器端发送的命令做准备

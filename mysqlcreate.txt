@@ -1,0 +1,9 @@
+create database ERPdb;
+use ERPdb;
+
+create table users(
+id int primary key auto_increment not null,
+userid varchar(20) unique not null,
+userpassword varchar(20) not null,
+position varchar(50) not null
+);
