@@ -24,7 +24,7 @@ public class GetPanel{
     }
     public static JPanel getPanel(String panlName){
         switch(panlName){
-            case "员工管理":return new JPanel();
+            case "EMP Management":return new JPanel();
                 
         }
        return null;
