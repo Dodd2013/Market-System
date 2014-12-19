@@ -32,7 +32,7 @@ update CompanyTB set Name_Cn='dfs',Name_En='gfds',city='gfds',Address_Cn='gfds',
 
 create table DepartmentTB(
 Dept int identity(11,1) primary key  not null,
-Dept_Name varchar(10),
+Dept_Name varchar(30),
 Com_Id int foreign key references CompanyTB(Com_Id),
 )
 
@@ -40,7 +40,7 @@ Com_Id int foreign key references CompanyTB(Com_Id),
 
 create table DepartmentTB(
 Dept int identity(11,1)  not null,
-Dept_Name varchar(10),
+Dept_Name varchar(30),
 Com_Id int foreign key references CompanyTB(Com_Id),
 Dept_Id int primary key(Com_Id,Dept) 
 )
@@ -59,7 +59,7 @@ select * from DepartmentTB
 
 create table DesignationTB(
 Des_Id int  primary key identity(1,1) not null,
-Des_Name varchar(30) not null,
+Des_Name varchar(40) not null,
 Des_Year int not null
 )
 drop table DesignationTB
@@ -81,15 +81,15 @@ select * from DesignationTB
 
 create table EmployeeTB(
 Emp_Id int primary key identity(100000,1) not null,
-Name_Cn varchar(20) not null,
-Name_En varchar(20) null,
+Name_Cn varchar(30) not null,
+Name_En varchar(30) null,
 Emp_Dept int foreign key references DepartmentTB(Dept),
 Emp_Des int foreign key references DesignationTB(Des_Id),
-Gender varchar(4)  constraint CK_Gender check(Gender in ('男','女')) not null,
+Gender varchar(4)  constraint CK_Gender check(Gender in ('man','woman')) not null,
 Dob Date not null,
 Mobile char(11) unique,
-Email varchar(20) constraint CK_Email check(Email like '%@%'),
-Address varchar(20) not null,
+Email varchar(30) constraint CK_Email check(Email like '%@%'),
+Address varchar(50) not null,
 Join_Date Date
 )
 
@@ -120,8 +120,8 @@ Emp_Des int foreign key references DesignationTB(Des_Id),
 Gender varchar(4)  not null,
 Dob Date not null,
 Mobile char(11) unique,
-Email varchar(20) ,
-Address varchar(20) not null,
+Email varchar(30) ,
+Address varchar(50) not null,
 Join_Date Date,
 Leave_Date Date
 )
@@ -184,8 +184,8 @@ set Name_Cn = '张三' where Name_Cn = '唐宁'
 
 create table ModelTB(
 Model_ID int primary key  not null,
-Model_Name  Varchar(20) unique not null, --设置侯选建
-Model_Group varchar(20) not null,
+Model_Name  Varchar(40) unique not null, --设置侯选建
+Model_Group varchar(40) not null,
 Model_Remarks varchar(500) null
 )
 drop table ModelTB
@@ -203,7 +203,7 @@ select * from ModelTB
 create table PermissionTB (
 Emp_Id int foreign  key references EmployeeTB(Emp_Id) not null,
 Per_Id int foreign key references ModelTB(Model_Id) not null,
-Per_Remarks varchar(50)  null
+Per_Remarks varchar(80)  null
 )
 drop table PermissionTB
 --插入数据测试
@@ -221,7 +221,7 @@ select c.Name_Cn,b.Model_Name from PermissionTB a join ModelTB b on a.Per_Id=b.M
 create table Per_DesTB(
 Des_Id int foreign key references DesignationTB(Des_Id) not null,
 Per_Id int foreign key references ModelTB(Model_Id) not null,
-Per_Remarks varchar(50) null
+Per_Remarks varchar(80) null
 )
 drop table Per_DesTB
 --插入数据
@@ -256,10 +256,10 @@ insert into PermissionTB select b.Emp_Id, Per_id ,a.Per_Remarks from Per_DesTB a
  drop table userTB
 
  --初始化ERP系统
- insert into CompanyTB values('联想','lenove','北京','北京中关村',null,'0532-125451','收购IBM PC部')
- insert into DepartmentTB values ('ERP维护部',101)
- insert into DesignationTB values('ERP系统管理员',5)
- insert into EmployeeTB values ('陈道想','Dodd',12,1,'男','1995-09-25','15066817901','291106637@qq.com','青大汇园二号',getdate())
+ insert into CompanyTB values('联想','lenove','BEIJING','BEIJING',null,'0532-125451','收购IBM PC部')
+ insert into DepartmentTB values ('IT department',100)
+ insert into DesignationTB values('Admain',5)
+ insert into EmployeeTB values ('Dodd','Dodd',12,1,'男','1995-09-25','15066817901','291106637@qq.com','青大汇园二号',getdate())
  insert into usersTB values('Dodd','3d4f2bf07dc1be38b20cd6e46949a1071f9d0e3d',100007)
- insert into ModelTB values (1001,'员工管理','100人力','增删改查')
- insert into PermissionTB values (100007,1001,'---')
+ insert into ModelTB values (1002,'EMP Management','100EMP Management','增删改查')
+ insert into PermissionTB values (100007,1002,'---')
