@@ -182,7 +182,7 @@ public class LoginMain {
                     msg=DataOnly.clientServer.in.readLine();
                     System.out.println(msg);
                     if(msg.equals("CMD:LoginOK")){
-                        DataOnly.loginMan=res.getInt("emp_id");
+                        DataOnly.loginMan=res.getString("emp_id");
                         DataOnly.loginManName=res.getString("Name_CN");
                         return true;
                     }else if(msg.equals("CMD:UserIsOnLine")){
