@@ -8,7 +8,6 @@ package MainPkg;
 
 import DataReadpkg.DataOnly;
 import DataReadpkg.GetLanguageName;
-import FirstPkg.CompanyPanel;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -25,7 +24,7 @@ public class GetPanel{
     }
     public static JPanel getPanel(String panlName){
         switch(panlName){
-            case "员工管理":return new CompanyPanel();
+            case "员工管理":return new JPanel();
                 
         }
        return null;
