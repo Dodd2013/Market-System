@@ -36,3 +36,7 @@ Per_Remarks varchar(80)  null
  insert into usersTB values('Dodd','3d4f2bf07dc1be38b20cd6e46949a1071f9d0e3d','E001')
  insert into ModelTB values (1002,'EMP Management','100EMP Management','ÔöÉ¾¸Ä²é')
  insert into PermissionTB values ('E001',1002,'---')
+
+
+ -------------------------------------------------------------------------------
+ create table 

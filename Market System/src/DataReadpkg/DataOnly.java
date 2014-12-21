@@ -49,6 +49,6 @@ public class DataOnly {
         public static int height;//高
         public static int ren;//任务栏高度
     }
-    public static Locale locale=new Locale("en", "US");
+    public static Locale locale=new Locale("zh", "CN");
     
 }
