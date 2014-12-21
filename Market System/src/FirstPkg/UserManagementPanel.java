@@ -8,11 +8,13 @@ package FirstPkg;
 
 import DataReadpkg.GetLanguageName;
 import Toolspkg.DisPlayPanel;
+import Toolspkg.TableTools;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.util.Vector;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
@@ -24,7 +26,7 @@ import javax.swing.table.TableModel;
  *
  * @author Doddc
  */
-public class EmpManagementPanel extends JPanel{
+public class UserManagementPanel extends JPanel{
     JPanel btnPanel,editPanel,upPanel;
     JScrollPane tablePanel;
     JButton newbtn,delbtn,searchbtn,updatabtn;
@@ -34,7 +36,8 @@ public class EmpManagementPanel extends JPanel{
     public JTable table;
     public DefaultTableModel tableModel;
     public TableModel model;
-    public EmpManagementPanel(){
+    int itemNum=3;
+    public UserManagementPanel(){
         disPalyPanelVector=new Vector<>();
         this.setLayout(new BorderLayout());
         btnPanel=new JPanel();
@@ -52,22 +55,16 @@ public class EmpManagementPanel extends JPanel{
         upPanel.add(separator1);
         upPanel.add(editPanel,BorderLayout.SOUTH);
         itemStrings=new String[]{
-            GetLanguageName.getName("empId"),
-            GetLanguageName.getName("empNameCN"),
-            GetLanguageName.getName("empNameEN"),
-            GetLanguageName.getName("empGender"),
-            GetLanguageName.getName("empDob"),
-            GetLanguageName.getName("empMobile"),
-            GetLanguageName.getName("empEmail"),
-            GetLanguageName.getName("empAddress"),
-            GetLanguageName.getName("empJoinDate")
+            GetLanguageName.getName("userName"),
+            GetLanguageName.getName("passWord"),
+            GetLanguageName.getName("empId")
         };
-        for(int i=0;i<9;i++){
+        for(int i=0;i<itemNum;i++){
             disPalyPanelVector.add(new DisPlayPanel(itemStrings[i]+":", DisPlayPanel.isDis));
             editPanel.add(disPalyPanelVector.get(i));
         }
             
-            
+        
         searchbtn=new JButton(GetLanguageName.getName("searchBtn"));
         btnPanel.add(searchbtn); 
         newbtn=new JButton(GetLanguageName.getName("newBtn"));
@@ -79,6 +76,14 @@ public class EmpManagementPanel extends JPanel{
         tableModel=new DefaultTableModel(itemStrings, 0);
         table=new JTable(tableModel);
         tablePanel.setViewportView(table);
-        
+        table.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
+        //TableTools.adjustTableColumnWidths(table);
+    }
+    public static void main(String[] args) {
+        JFrame frame=new JFrame();
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(new  UserManagementPanel(),BorderLayout.CENTER);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
     }
 }

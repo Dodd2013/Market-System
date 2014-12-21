@@ -1,8 +1,0 @@
-18:13:53 2014-12-19:Waiting for the connection！
-18:13:53 2014-12-19:The server is  on!！
-18:13:59 2014-12-19:Waiting for the connection！
-18:14:03 2014-12-19:UserName:DoddLogin！
-18:15:42 2014-12-19:Waiting for the connection！
-18:15:46 2014-12-19:UserName:DoddLogin！
-18:15:56 2014-12-19:UserName:DoddExit!
-

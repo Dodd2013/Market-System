@@ -8,6 +8,8 @@ package MainPkg;
 
 import DataReadpkg.DataOnly;
 import DataReadpkg.GetLanguageName;
+import FirstPkg.EmpManagementPanel;
+import FirstPkg.UserManagementPanel;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,8 +26,8 @@ public class GetPanel{
     }
     public static JPanel getPanel(String panlName){
         switch(panlName){
-            case "EMP Management":return new JPanel();
-                
+            case "EMP Management":return new EmpManagementPanel();
+            case "User Management":return new UserManagementPanel();
         }
        return null;
     }
