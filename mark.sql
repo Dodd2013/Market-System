@@ -35,9 +35,11 @@ Per_Remarks varchar(80)  null
  insert into usersTB values('Dodd','3d4f2bf07dc1be38b20cd6e46949a1071f9d0e3d','E001')
  insert into ModelTB values (1001,'EMP Management','100EMP Management','增删改查')
  insert into ModelTB values (1002,'User Management','100EMP Management','增删改查')
- insert into ModelTB values (2001,'ItemDetail Management','100EMP Management','增删改查')
+ insert into ModelTB values (2001,'ItemDetail Management','200Inventory  Management','增删改查')
  insert into PermissionTB values ('E001',1001,'---')
  insert into PermissionTB values ('E001',1002,'---')
+ insert into PermissionTB values ('E001',2001,'---')
+
 
 
  -------------------------------------------------------------------------------
@@ -48,4 +50,10 @@ Per_Remarks varchar(80)  null
  supplier varchar(50) null,
  descriptions varchar(300) null,
  price int not null
+ )
+ create table inventoryTB(
+	Item_Id int references ItemDetailTB not null,
+	Address varchar(50) not null,
+	Item_Num int not null ,
+	Sell_Status varchar(10) not null check(Sell_Status ='putaway' or Sell_Status ='sold out')
  )
