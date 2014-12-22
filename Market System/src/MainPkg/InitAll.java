@@ -115,7 +115,7 @@ public class InitAll {
         PreparedStatement pstmt;
         try {
             pstmt=DataOnly.conData.con.prepareStatement(" select * from PermissionTB a join ModelTB b on a.Per_Id=b.Model_id where Emp_Id= ? order by Model_id");
-            pstmt.setInt(1, DataOnly.loginMan);
+            pstmt.setString(1, DataOnly.loginMan);
             ResultSet res=pstmt.executeQuery();
             while(res.next()){
                 PkgClass t=new PkgClass();

@@ -31,7 +31,7 @@ public class DataOnly {
     public static boolean initCDB=false;//数据库链接成功标志
     public static boolean loginOrnot=false;//登录成功标志
     public static boolean initOrnot=false;//初始化成功标志
-    public static int loginMan;//登录者emp_id
+    public static String loginMan;//登录者emp_id
     public static String loginManName;//登录者name_CN
     public static int loginPositionId;//登录者职位id
     public static JTree NaJTree;//导航树
@@ -49,6 +49,6 @@ public class DataOnly {
         public static int height;//高
         public static int ren;//任务栏高度
     }
-    public static Locale locale=new Locale("en", "US");
+    public static Locale locale=new Locale("zh", "CN");
     
 }
