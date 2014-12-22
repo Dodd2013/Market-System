@@ -1,27 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
-        <file>
-            <url>src/MainPkg/GetPanel.java</url>
-            <bookmark id="1">
-                <name/>
-                <line>26</line>
-                <key/>
-            </bookmark>
-        </file>
-    </editor-bookmarks>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-<<<<<<< HEAD
-        <group/>
-=======
         <group>
-            <file>file:/E:/GitHub/Market-System/Market%20System/src/MainPkg/GetPanel.java</file>
-            <file>file:/E:/GitHub/Market-System/Market%20System/src/FirstPkg/EmpManagementPanel.java</file>
-            <file>file:/E:/GitHub/Market-System/Market%20System/src/FirstPkg/NewUserPanel.java</file>
-            <file>file:/E:/GitHub/Market-System/Market%20System/src/Language_en_US.properties</file>
-            <file>file:/E:/GitHub/Market-System/Market%20System/src/DataReadpkg/DataOnly.java</file>
-            <file>file:/E:/GitHub/Market-System/Market%20System/src/Language_zh_CN.properties</file>
+            <file>file:/D:/Dodd/Market-System/Market%20System/src/FirstPkg/InventoryManagementPanel.java</file>
+            <file>file:/D:/Dodd/Market-System/Market%20System/src/FirstPkg/ItemDetailManagementPanel.java</file>
+            <file>file:/D:/Dodd/Market-System/Market%20System/src/Language_en_US.properties</file>
+            <file>file:/D:/Dodd/Market-System/Market%20System/src/MainPkg/GetPanel.java</file>
+            <file>file:/D:/Dodd/Market-System/Market%20System/src/Language_zh_CN.properties</file>
         </group>
->>>>>>> origin/master
     </open-files>
 </project-private>
