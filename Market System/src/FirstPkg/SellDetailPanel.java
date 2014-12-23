@@ -42,7 +42,7 @@ public class SellDetailPanel extends JPanel{
         btnPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
         editPanel=new JPanel();
         editPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-        editPanel.setPreferredSize(new Dimension(150, 150));
+        editPanel.setPreferredSize(new Dimension(120, 120));
         tablePanel=new JScrollPane();
         upPanel=new JPanel();
         upPanel.setLayout(new BorderLayout());

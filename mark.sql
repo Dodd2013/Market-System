@@ -8,25 +8,25 @@ Emp_Id varchar(4) primary key  not null check(Emp_Id like 'E___'),
 Name_Cn varchar(30) not null,
 Name_En varchar(30) null,
 Gender varchar(4)  constraint CK_Gender check(Gender in ('man','woman')) not null,
-Dob Date not null,
-Mobile char(11) unique,
+Dob Date not null,  --生日
+Mobile char(11) unique, --手机号
 Email varchar(30) constraint CK_Email check(Email like '%@%'),
 Address varchar(50) not null,
-Join_Date Date
+Join_Date Date   --加入日期
 )
 ------------------------------------------------------------
-create table ModelTB(
+create table ModelTB(    --模块表
 Model_ID int primary key  not null,
 Model_Name  Varchar(40) unique not null, --设置侯选建
 Model_Group varchar(40) not null,
 Model_Remarks varchar(500) null
 )
-create table PermissionTB (
+create table PermissionTB (   --权限表
 Emp_Id varchar(4) foreign  key references EmployeeTB(Emp_Id) not null,
 Per_Id int foreign key references ModelTB(Model_Id) not null,
 Per_Remarks varchar(80)  null
 )
- create table usersTB(
+ create table usersTB(   --账户表
  userid varchar(20) not null unique,
  password varchar(50) not null,
  Emp_Id varchar(4) foreign key references EmployeeTB not null
@@ -36,15 +36,17 @@ Per_Remarks varchar(80)  null
  insert into ModelTB values (1001,'EMP Management','100EMP Management','增删改查')
  insert into ModelTB values (1002,'User Management','100EMP Management','增删改查')
  insert into ModelTB values (2001,'ItemDetail Management','200Inventory  Management','增删改查')
-  insert into ModelTB values (2002,'Inventory Management','200Inventory  Management','增删改查')
+ insert into ModelTB values (2002,'Inventory Management','200Inventory  Management','增删改查')
+ insert into ModelTB values (3001,'Sell','300Sell','增删改查')
  insert into PermissionTB values ('E001',1001,'---')
  insert into PermissionTB values ('E001',1002,'---')
  insert into PermissionTB values ('E001',2001,'---')
  insert into PermissionTB values ('E001',2002,'---')
+ insert into PermissionTB values ('E001',3001,'---')
 
 
  -------------------------------------------------------------------------------
- create table ItemDetailTB(
+ create table ItemDetailTB(  --销售商品表
  Item_Id int primary key identity(1,1) not null,
  Item_NameCN varchar(50) not null,
  Item_NameEN varchar(50) not null,
@@ -52,19 +54,19 @@ Per_Remarks varchar(80)  null
  descriptions varchar(300) null,
  price int not null
  )
- create table inventoryTB(
+ create table inventoryTB(  --库存表
 	Item_Id int references ItemDetailTB not null,
 	Address varchar(50) not null,
 	Item_Num int not null ,
 	Sell_Status varchar(10) not null check(Sell_Status ='putaway' or Sell_Status ='sold out')
  )
- create table sellTB(
+ create table sellTB(  --销售表
  sell_Id int primary key identity(1,1) not null,
  customer_Name varchar(50) not null,
  sell_Date date not null,
  money_Sum int not null
  )
- create table sellDetailTB(
+ create table sellDetailTB(  --销售详细表
 	sell_Id int references sellTB not null,
 	Item_Id int references ItemDetailTB not null,
 	item_Num int not null check(item_Num>0),
