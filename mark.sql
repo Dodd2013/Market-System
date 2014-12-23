@@ -62,5 +62,11 @@ Per_Remarks varchar(80)  null
  sell_Id int primary key identity(1,1) not null,
  customer_Name varchar(50) not null,
  sell_Date date not null,
-
+ money_Sum int not null
+ )
+ create table sellDetailTB(
+	sell_Id int references sellTB not null,
+	Item_Id int references ItemDetailTB not null,
+	item_Num int not null check(item_Num>0),
+	money_Sum int not null
  )

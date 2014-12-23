@@ -11,6 +11,7 @@ import DataReadpkg.GetLanguageName;
 import FirstPkg.EmpManagementPanel;
 import FirstPkg.InventoryManagementPanel;
 import FirstPkg.ItemDetailManagementPanel;
+import FirstPkg.SellPanel;
 import FirstPkg.UserManagementPanel;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -32,6 +33,7 @@ public class GetPanel{
             case "User Management":return new UserManagementPanel();
             case "ItemDetail Management":return new ItemDetailManagementPanel();
             case "Inventory Management":return new InventoryManagementPanel();
+            case "Sell":return new SellPanel();
         }
        return null;
     }
