@@ -1,34 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-<<<<<<< HEAD
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
         <file>
             <url>src/MainPkg/GetPanel.java</url>
             <bookmark id="1">
                 <name/>
-                <line>28</line>
+                <line>29</line>
                 <key/>
             </bookmark>
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/E:/GitHub/Market-System/Market%20System/src/FirstPkg/ItemDetailManagementPanel.java</file>
             <file>file:/E:/GitHub/Market-System/Market%20System/src/MainPkg/GetPanel.java</file>
+            <file>file:/E:/GitHub/Market-System/Market%20System/src/FirstPkg/SellPanel.java</file>
             <file>file:/E:/GitHub/Market-System/Market%20System/src/FirstPkg/UserManagementPanel.java</file>
             <file>file:/E:/GitHub/Market-System/Market%20System/src/FirstPkg/EmpManagementPanel.java</file>
             <file>file:/E:/GitHub/Market-System/Market%20System/src/Toolspkg/TableTools.java</file>
             <file>file:/E:/GitHub/Market-System/Market%20System/src/Language_en_US.properties</file>
+            <file>file:/E:/GitHub/Market-System/Market%20System/src/FirstPkg/InventoryManagementPanel.java</file>
             <file>file:/E:/GitHub/Market-System/Market%20System/src/Language_zh_CN.properties</file>
-=======
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
-    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/D:/Dodd/Market-System/Market%20System/src/FirstPkg/InventoryManagementPanel.java</file>
-            <file>file:/D:/Dodd/Market-System/Market%20System/src/FirstPkg/ItemDetailManagementPanel.java</file>
-            <file>file:/D:/Dodd/Market-System/Market%20System/src/Language_en_US.properties</file>
-            <file>file:/D:/Dodd/Market-System/Market%20System/src/MainPkg/GetPanel.java</file>
-            <file>file:/D:/Dodd/Market-System/Market%20System/src/Language_zh_CN.properties</file>
->>>>>>> origin/master
         </group>
     </open-files>
 </project-private>

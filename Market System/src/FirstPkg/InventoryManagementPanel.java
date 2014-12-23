@@ -8,13 +8,11 @@ package FirstPkg;
 
 import DataReadpkg.GetLanguageName;
 import Toolspkg.DisPlayPanel;
-import Toolspkg.TableTools;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.util.Vector;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
@@ -36,7 +34,7 @@ public class  InventoryManagementPanel extends JPanel{
     public JTable table;
     public DefaultTableModel tableModel;
     public TableModel model;
-    int itemNum=6;
+    int itemNum=4;
     public InventoryManagementPanel(){
         disPalyPanelVector=new Vector<>();
         this.setLayout(new BorderLayout());
@@ -56,11 +54,9 @@ public class  InventoryManagementPanel extends JPanel{
         upPanel.add(editPanel,BorderLayout.SOUTH);
         itemStrings=new String[]{
             GetLanguageName.getName("itemId"),
-            GetLanguageName.getName("itemNameCN"),
-            GetLanguageName.getName("itemNameEN"),
-            GetLanguageName.getName("supplier"),
-            GetLanguageName.getName("description"),
-            GetLanguageName.getName("price"),
+            GetLanguageName.getName("address"),
+            GetLanguageName.getName("itemNum"),
+            GetLanguageName.getName("sellStatus")
         };
         for(int i=0;i<itemNum;i++){
             disPalyPanelVector.add(new DisPlayPanel(itemStrings[i]+":", DisPlayPanel.isDis));

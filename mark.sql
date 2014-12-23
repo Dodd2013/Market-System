@@ -36,10 +36,11 @@ Per_Remarks varchar(80)  null
  insert into ModelTB values (1001,'EMP Management','100EMP Management','增删改查')
  insert into ModelTB values (1002,'User Management','100EMP Management','增删改查')
  insert into ModelTB values (2001,'ItemDetail Management','200Inventory  Management','增删改查')
+  insert into ModelTB values (2002,'Inventory Management','200Inventory  Management','增删改查')
  insert into PermissionTB values ('E001',1001,'---')
  insert into PermissionTB values ('E001',1002,'---')
  insert into PermissionTB values ('E001',2001,'---')
-
+ insert into PermissionTB values ('E001',2002,'---')
 
 
  -------------------------------------------------------------------------------
@@ -56,4 +57,10 @@ Per_Remarks varchar(80)  null
 	Address varchar(50) not null,
 	Item_Num int not null ,
 	Sell_Status varchar(10) not null check(Sell_Status ='putaway' or Sell_Status ='sold out')
+ )
+ create table sellTB(
+ sell_Id int primary key identity(1,1) not null,
+ customer_Name varchar(50) not null,
+ sell_Date date not null,
+
  )

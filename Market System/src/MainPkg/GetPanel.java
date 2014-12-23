@@ -9,6 +9,7 @@ package MainPkg;
 import DataReadpkg.DataOnly;
 import DataReadpkg.GetLanguageName;
 import FirstPkg.EmpManagementPanel;
+import FirstPkg.InventoryManagementPanel;
 import FirstPkg.ItemDetailManagementPanel;
 import FirstPkg.UserManagementPanel;
 import java.sql.PreparedStatement;
@@ -30,6 +31,7 @@ public class GetPanel{
             case "EMP Management":return new EmpManagementPanel();
             case "User Management":return new UserManagementPanel();
             case "ItemDetail Management":return new ItemDetailManagementPanel();
+            case "Inventory Management":return new InventoryManagementPanel();
         }
        return null;
     }

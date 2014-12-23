@@ -24,7 +24,7 @@ import javax.swing.table.TableModel;
  *
  * @author Doddc
  */
-public class UserManagementPanel extends JPanel{
+public class SellPanel extends JPanel{
     JPanel btnPanel,editPanel,upPanel;
     JScrollPane tablePanel;
     JButton newbtn,delbtn,searchbtn,updatabtn;
@@ -35,7 +35,7 @@ public class UserManagementPanel extends JPanel{
     public DefaultTableModel tableModel;
     public TableModel model;
     int itemNum=3;
-    public UserManagementPanel(){
+    public SellPanel(){
         disPalyPanelVector=new Vector<>();
         this.setLayout(new BorderLayout());
         btnPanel=new JPanel();
