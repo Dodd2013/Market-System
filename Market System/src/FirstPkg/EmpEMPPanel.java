@@ -24,7 +24,7 @@ import javax.swing.table.TableModel;
  *
  * @author Doddc
  */
-public class SalesPerformancePanel extends JPanel{
+public class EmpEMPPanel extends JPanel{
     JPanel btnPanel,editPanel,upPanel;
     JScrollPane tablePanel;
     JButton searchbtn;
@@ -34,15 +34,14 @@ public class SalesPerformancePanel extends JPanel{
     public JTable table;
     public DefaultTableModel tableModel;
     public TableModel model;
-    int itemNum=5;
-    public SalesPerformancePanel(){
+    public EmpEMPPanel(){
         disPalyPanelVector=new Vector<>();
         this.setLayout(new BorderLayout());
         btnPanel=new JPanel();
         btnPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
         editPanel=new JPanel();
         editPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-        editPanel.setPreferredSize(new Dimension(120, 120));
+        editPanel.setPreferredSize(new Dimension(150, 150));
         tablePanel=new JScrollPane();
         upPanel=new JPanel();
         upPanel.setLayout(new BorderLayout());
@@ -53,24 +52,27 @@ public class SalesPerformancePanel extends JPanel{
         upPanel.add(separator1);
         upPanel.add(editPanel,BorderLayout.SOUTH);
         itemStrings=new String[]{
-            GetLanguageName.getName("itemId"),
-            GetLanguageName.getName("itemNameEN"),
-            GetLanguageName.getName("itemNameCN"),
-            GetLanguageName.getName("sellItemNum"),
-            GetLanguageName.getName("moneySum"),
+            GetLanguageName.getName("empId"),
+            GetLanguageName.getName("empNameCN"),
+            GetLanguageName.getName("empNameEN"),
+            GetLanguageName.getName("empGender"),
+            GetLanguageName.getName("empDob"),
+            GetLanguageName.getName("empMobile"),
+            GetLanguageName.getName("empEmail"),
+            GetLanguageName.getName("empAddress"),
+            GetLanguageName.getName("empJoinDate")
         };
-        for(int i=0;i<itemNum;i++){
+        for(int i=0;i<9;i++){
             disPalyPanelVector.add(new DisPlayPanel(itemStrings[i]+":", DisPlayPanel.isDis));
             editPanel.add(disPalyPanelVector.get(i));
         }
             
-        
+            
         searchbtn=new JButton(GetLanguageName.getName("searchBtn"));
-        btnPanel.add(searchbtn); 
+        btnPanel.add(searchbtn); ;
         tableModel=new DefaultTableModel(itemStrings, 0);
         table=new JTable(tableModel);
         tablePanel.setViewportView(table);
-        table.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
-        //TableTools.adjustTableColumnWidths(table);
+        
     }
 }

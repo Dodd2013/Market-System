@@ -73,14 +73,14 @@ public class EncoderHandler {
 		}
 		return buf.toString();
 	}
-        //演示用法
+////        演示用法
 //	public static void main(String[] args) {
-//		System.out.println("111111 MD5  :"
-//				+ EncoderHandler.encodeByMD5("111111"));
-//		System.out.println("111111 MD5  :"
-//				+ EncoderHandler.encode("MD5", "111111"));
+////		System.out.println("111111 MD5  :"
+////				+ EncoderHandler.encodeByMD5("111111"));
+////		System.out.println("111111 MD5  :"
+////				+ EncoderHandler.encode("MD5", "111111"));
 //		System.out.println("111111 SHA1 :"
-//				+ EncoderHandler.encode("SHA1", "111111"));
+//				+ EncoderHandler.encode("SHA1", "222222"));
 //	}
 
 }

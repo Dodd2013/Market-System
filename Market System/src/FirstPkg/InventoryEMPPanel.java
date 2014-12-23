@@ -24,7 +24,7 @@ import javax.swing.table.TableModel;
  *
  * @author Doddc
  */
-public class SalesPerformancePanel extends JPanel{
+public class  InventoryEMPPanel extends JPanel{
     JPanel btnPanel,editPanel,upPanel;
     JScrollPane tablePanel;
     JButton searchbtn;
@@ -34,15 +34,15 @@ public class SalesPerformancePanel extends JPanel{
     public JTable table;
     public DefaultTableModel tableModel;
     public TableModel model;
-    int itemNum=5;
-    public SalesPerformancePanel(){
+    int itemNum=4;
+    public InventoryEMPPanel(){
         disPalyPanelVector=new Vector<>();
         this.setLayout(new BorderLayout());
         btnPanel=new JPanel();
         btnPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
         editPanel=new JPanel();
         editPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-        editPanel.setPreferredSize(new Dimension(120, 120));
+        editPanel.setPreferredSize(new Dimension(150, 150));
         tablePanel=new JScrollPane();
         upPanel=new JPanel();
         upPanel.setLayout(new BorderLayout());
@@ -54,10 +54,9 @@ public class SalesPerformancePanel extends JPanel{
         upPanel.add(editPanel,BorderLayout.SOUTH);
         itemStrings=new String[]{
             GetLanguageName.getName("itemId"),
-            GetLanguageName.getName("itemNameEN"),
-            GetLanguageName.getName("itemNameCN"),
-            GetLanguageName.getName("sellItemNum"),
-            GetLanguageName.getName("moneySum"),
+            GetLanguageName.getName("address"),
+            GetLanguageName.getName("itemNum"),
+            GetLanguageName.getName("sellStatus")
         };
         for(int i=0;i<itemNum;i++){
             disPalyPanelVector.add(new DisPlayPanel(itemStrings[i]+":", DisPlayPanel.isDis));

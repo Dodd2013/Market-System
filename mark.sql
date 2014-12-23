@@ -33,17 +33,31 @@ Per_Remarks varchar(80)  null
  )
  insert into EmployeeTB values ('E001','Dodd','Dodd','man','1995-09-25','15066817901','291106637@qq.com','青大汇园二号',getdate())
  insert into usersTB values('Dodd','3d4f2bf07dc1be38b20cd6e46949a1071f9d0e3d','E001')
- insert into ModelTB values (1001,'EMP Management','100EMP Management','增删改查')
- insert into ModelTB values (1002,'User Management','100EMP Management','增删改查')
- insert into ModelTB values (2001,'ItemDetail Management','200Inventory  Management','增删改查')
- insert into ModelTB values (2002,'Inventory Management','200Inventory  Management','增删改查')
+ insert into ModelTB values (1001,'EMP Management','100EMP','增删改查')
+ insert into ModelTB values (1002,'User Management','100EMP','增删改查')
+ insert into ModelTB values (2001,'ItemDetail Management','200Inventory','增删改查')
+ insert into ModelTB values (2002,'Inventory Management','200Inventory','增删改查')
  insert into ModelTB values (3001,'Sell','300Sell','增删改查')
+ insert into ModelTB values (3002,'SalesPerformance','300Sell','fdsa')
+
+
  insert into PermissionTB values ('E001',1001,'---')
  insert into PermissionTB values ('E001',1002,'---')
  insert into PermissionTB values ('E001',2001,'---')
  insert into PermissionTB values ('E001',2002,'---')
  insert into PermissionTB values ('E001',3001,'---')
-
+ insert into PermissionTB values ('E001',3002,'---')
+ -------------------------------------------------------------------------------
+ insert into EmployeeTB values ('E002','Allen','Allen','man','1995-09-25','15000000000','291106637@qq.com','青大汇园二号',getdate())
+ insert into usersTB values('Allen','273a0c7bd3c679ba9a6f5d99078e36e85d02b952','E002')
+ insert into ModelTB values (1003,'EmpSearch','100EMP','增删改查')
+ insert into ModelTB values (2004,'ItemDetailSearch','200Inventory','增删改查')
+ insert into ModelTB values (2003,'InventorySearch','200Inventory','增删改查')
+ insert into PermissionTB values ('E002',3001,'---')
+ insert into PermissionTB values ('E002',3002,'---')
+ insert into PermissionTB values ('E002',2003,'---')
+ insert into PermissionTB values ('E002',2004,'---')
+ insert into PermissionTB values ('E002',1003,'---')
 
  -------------------------------------------------------------------------------
  create table ItemDetailTB(  --销售商品表
