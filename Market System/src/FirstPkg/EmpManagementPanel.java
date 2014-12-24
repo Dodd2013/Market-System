@@ -30,7 +30,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.RowSorter;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
@@ -102,7 +105,23 @@ public class EmpManagementPanel extends JPanel{
         table=new JTable(tableModel);
         RowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tableModel);  
         table.setRowSorter(sorter); 
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tablePanel.setViewportView(table);
+        table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+
+                    @Override
+                    public void valueChanged(ListSelectionEvent e) {
+                        int row=table.getSelectedRow();
+                        if(row!=-1){
+                        row=table.convertRowIndexToModel(row);
+                        for(int i=0;i<disPalyPanelVector.size();i++){
+                            DisPlayPanel disPlayPanel=disPalyPanelVector.get(i);
+                            disPlayPanel.textField.setText((String)tableModel.getValueAt(row, i))
+                        }
+                        }
+                        
+                    }
+                });
         
     }
      private class SelectDig extends JDialog{
