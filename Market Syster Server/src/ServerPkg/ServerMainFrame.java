@@ -101,6 +101,9 @@ public class ServerMainFrame extends JFrame{
                }
                else{
                    try {
+//                       for(int i=0;i<tableModel.getRowCount();i++){
+//                           tableModel.removeRow(i);
+//                       }
                        sst.serverSocket.close();
                        sst.interrupt();
                        rcl.interrupt();

@@ -26,10 +26,12 @@ public class MsgHandle {
         }
         if(msg.startsWith("LOGIN:")){
             boolean flag=false;
+            System.out.println(msg);
             String id=msg.substring(msg.lastIndexOf("id:")+3, msg.indexOf(";password:"));
             String userName=msg.substring(msg.lastIndexOf(";name:")+6);
+            System.out.println(id+"   fgds  "+userName);
             for(int i=0;i<mainFrame.tableModel.getRowCount();i++){
-              if(mainFrame.tableModel.getValueAt(i, 5).equals(id)) {
+              if(mainFrame.tableModel.getValueAt(i, 1).equals(id)) {
                   flag=true;
               }
             }

@@ -6,13 +6,13 @@
 
 package DataBasePkg;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import DataReadpkg.ConfigRead;
 import DataReadpkg.DataOnly;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.Statement;
+import java.sql.SQLException;
+import java.util.Vector;
 /**
  *
  * @author QDU-01
