@@ -13,9 +13,11 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.util.Vector;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
+import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -24,7 +26,7 @@ import javax.swing.table.TableModel;
  *
  * @author Doddc
  */
-public class UserManagementPanel extends JPanel{
+public class SellPanel extends JPanel{
     JPanel btnPanel,editPanel,upPanel;
     JScrollPane tablePanel;
     JButton newbtn,delbtn,searchbtn,updatabtn;
@@ -32,30 +34,35 @@ public class UserManagementPanel extends JPanel{
     Vector<DisPlayPanel> disPalyPanelVector;
     String[] itemStrings;
     public JTable table;
+    public JTabbedPane tabbedPane;
     public DefaultTableModel tableModel;
     public TableModel model;
-    int itemNum=3;
-    public UserManagementPanel(){
+    int itemNum=4;
+    public SellPanel(){
         disPalyPanelVector=new Vector<>();
         this.setLayout(new BorderLayout());
         btnPanel=new JPanel();
         btnPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
         editPanel=new JPanel();
         editPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-        editPanel.setPreferredSize(new Dimension(150, 150));
+        editPanel.setPreferredSize(new Dimension(120, 120));
         tablePanel=new JScrollPane();
         upPanel=new JPanel();
         upPanel.setLayout(new BorderLayout());
         this.add(upPanel,BorderLayout.NORTH);
-        this.add(tablePanel);
+        tabbedPane=new JTabbedPane();
+        tabbedPane.addTab("gfds",tablePanel);
+        tabbedPane.addTab(GetLanguageName.getName("sellDetail"), new SellDetailPanel());
+        this.add(tabbedPane);
         upPanel.add(btnPanel,BorderLayout.NORTH);
         separator1=new JSeparator(JSeparator.HORIZONTAL);
         upPanel.add(separator1);
         upPanel.add(editPanel,BorderLayout.SOUTH);
         itemStrings=new String[]{
-            GetLanguageName.getName("userName"),
-            GetLanguageName.getName("passWord"),
-            GetLanguageName.getName("empId")
+            GetLanguageName.getName("sellId"),
+            GetLanguageName.getName("customerName"),
+            GetLanguageName.getName("sellDate"),
+            GetLanguageName.getName("moneySum")
         };
         for(int i=0;i<itemNum;i++){
             disPalyPanelVector.add(new DisPlayPanel(itemStrings[i]+":", DisPlayPanel.isDis));
@@ -77,4 +84,10 @@ public class UserManagementPanel extends JPanel{
         table.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
         //TableTools.adjustTableColumnWidths(table);
     }
+//    public static void main(String[] args) {
+//        JFrame jFrame=new JFrame();
+//        jFrame.add(new SellPanel());
+//        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        jFrame.setVisible(true);
+//    }
 }

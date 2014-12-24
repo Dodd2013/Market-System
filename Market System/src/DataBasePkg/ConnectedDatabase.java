@@ -11,6 +11,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import DataReadpkg.ConfigRead;
 import DataReadpkg.DataOnly;
+import java.sql.PreparedStatement;
 import java.sql.Statement;
 /**
  *
@@ -18,7 +19,7 @@ import java.sql.Statement;
  */
 public class ConnectedDatabase {
     public  Connection con;
-    public  Statement stmt;
+    public PreparedStatement pstmt;
     public  ConnectedDatabase() throws ClassNotFoundException, SQLException{
         
         String databasekind=ConfigRead.readValue(DataOnly.config,"databaseName");
@@ -38,7 +39,5 @@ public class ConnectedDatabase {
             con=DriverManager.getConnection(url,MYSQLid,MYSQLpsd);
         }
         
-       // System.out.println("gdsafdas");
-        stmt=con.createStatement();
     }
 }

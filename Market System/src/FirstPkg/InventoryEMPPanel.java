@@ -24,18 +24,18 @@ import javax.swing.table.TableModel;
  *
  * @author Doddc
  */
-public class UserManagementPanel extends JPanel{
+public class  InventoryEMPPanel extends JPanel{
     JPanel btnPanel,editPanel,upPanel;
     JScrollPane tablePanel;
-    JButton newbtn,delbtn,searchbtn,updatabtn;
+    JButton searchbtn;
     JSeparator separator1,separator2;
     Vector<DisPlayPanel> disPalyPanelVector;
     String[] itemStrings;
     public JTable table;
     public DefaultTableModel tableModel;
     public TableModel model;
-    int itemNum=3;
-    public UserManagementPanel(){
+    int itemNum=4;
+    public InventoryEMPPanel(){
         disPalyPanelVector=new Vector<>();
         this.setLayout(new BorderLayout());
         btnPanel=new JPanel();
@@ -53,9 +53,10 @@ public class UserManagementPanel extends JPanel{
         upPanel.add(separator1);
         upPanel.add(editPanel,BorderLayout.SOUTH);
         itemStrings=new String[]{
-            GetLanguageName.getName("userName"),
-            GetLanguageName.getName("passWord"),
-            GetLanguageName.getName("empId")
+            GetLanguageName.getName("itemId"),
+            GetLanguageName.getName("address"),
+            GetLanguageName.getName("itemNum"),
+            GetLanguageName.getName("sellStatus")
         };
         for(int i=0;i<itemNum;i++){
             disPalyPanelVector.add(new DisPlayPanel(itemStrings[i]+":", DisPlayPanel.isDis));
@@ -65,12 +66,6 @@ public class UserManagementPanel extends JPanel{
         
         searchbtn=new JButton(GetLanguageName.getName("searchBtn"));
         btnPanel.add(searchbtn); 
-        newbtn=new JButton(GetLanguageName.getName("newBtn"));
-        btnPanel.add(newbtn);
-        delbtn=new JButton(GetLanguageName.getName("deleteBtn"));
-        btnPanel.add(delbtn);
-        updatabtn=new JButton(GetLanguageName.getName("updataBtn"));
-        btnPanel.add(updatabtn);
         tableModel=new DefaultTableModel(itemStrings, 0);
         table=new JTable(tableModel);
         tablePanel.setViewportView(table);

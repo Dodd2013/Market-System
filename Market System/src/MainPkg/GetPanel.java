@@ -8,12 +8,8 @@ package MainPkg;
 
 import DataReadpkg.DataOnly;
 import DataReadpkg.GetLanguageName;
-import FirstPkg.EmpManagementPanel;
-import FirstPkg.ItemDetailManagementPanel;
-import FirstPkg.UserManagementPanel;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import FirstPkg.*;
+import java.sql.*;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -30,6 +26,12 @@ public class GetPanel{
             case "EMP Management":return new EmpManagementPanel();
             case "User Management":return new UserManagementPanel();
             case "ItemDetail Management":return new ItemDetailManagementPanel();
+            case "Inventory Management":return new InventoryManagementPanel();
+            case "Sell":return new SellPanel();
+            case "SalesPerformance":return new SalesPerformancePanel();
+            case "InventorySearch":return new InventoryEMPPanel();
+            case "ItemDetailSearch":return new ItemDetailEMPPanel();
+            case "EmpSearch":return new EmpEMPPanel();
         }
        return null;
     }
