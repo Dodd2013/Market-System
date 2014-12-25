@@ -10,6 +10,7 @@ import DataReadpkg.DataOnly;
 import DataReadpkg.GetLanguageName;
 import Toolspkg.DisPlayPanel;
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -26,6 +27,7 @@ import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
@@ -82,7 +84,15 @@ public class EmpManagementPanel extends JPanel{
         };
         for(int i=0;i<9;i++){
             disPalyPanelVector.add(new DisPlayPanel(itemStrings[i]+":", DisPlayPanel.isDis));
-            editPanel.add(disPalyPanelVector.get(i));
+            final DisPlayPanel disPlayPanel=disPalyPanelVector.get(i);
+            final int j=i;
+            editPanel.add(disPlayPanel);
+            disPalyPanelVector.get(i).textField.addKeyListener(new KeyAdapter() {
+                    
+                    public void keyReleased(KeyEvent e) {
+                        table.setValueAt(disPlayPanel.textField.getText(), table.getSelectedRow(), j);
+                    }
+                });
         }
             
             
@@ -96,13 +106,243 @@ public class EmpManagementPanel extends JPanel{
             }
         });
         newbtn=new JButton(GetLanguageName.getName("newBtn"));
+        newbtn.addActionListener(new ActionListener() {
+            ListSelectionListener d=new ListSelectionListener() {
+
+                    @Override
+                    public void valueChanged(ListSelectionEvent e) {
+                        if(tableModel.getRowCount()!=0)
+                        table.setRowSelectionInterval(table.convertRowIndexToView(tableModel.getRowCount()-1), table.convertRowIndexToView(tableModel.getRowCount()-1));
+                    }
+                };
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                final JPanel oldPanel;
+                upPanel.remove(btnPanel);
+                oldPanel=new JPanel();
+                oldPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+                JButton sbtn,exitbtn;
+                sbtn=new JButton(GetLanguageName.getName("ok"));
+                sbtn.addActionListener(new ActionListener() {
+
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        Vector<String> itemStrings=new Vector<>();
+                        boolean flag=false;
+                        for(DisPlayPanel disPlayPanel:disPalyPanelVector){
+                            String s=disPlayPanel.textField.getText();
+                            itemStrings.add(s);
+                            if(s.equals(""))flag=true;
+                        }
+                        if(flag){
+                            JOptionPane.showMessageDialog(DataOnly.mainFrame.maF, GetLanguageName.getName("empdiatel"));
+                        }else{
+                            try {
+                                PreparedStatement pstmt= DataOnly.conData.con.prepareStatement("insert into EmployeeTB values(?,?,?,?,?,?,?,?,getdate())");
+                                for(int i=0;i<itemStrings.size()-1;i++){
+                                    pstmt.setString(i+1, itemStrings.get(i));
+                                }
+                                pstmt.executeUpdate();
+//                                pstmt=DataOnly.conData.con.prepareStatement("select * from CompanyTB where Front_Tel='"+fronttelString+"'");
+//                                ResultSet res=pstmt.executeQuery();
+//                                String cmpid=null;
+//                                while(res.next())
+//                                    cmpid=res.getString("Com_id");
+//                                table.setValueAt(cmpid, table.getSelectedRow(), 0);
+                            } catch (SQLException ex) {
+                                JOptionPane.showMessageDialog(btnPanel, ex.getMessage());
+                            }
+                        upPanel.remove(oldPanel);
+                        upPanel.add(btnPanel);
+                        upPanel.validate();
+                        upPanel.repaint();
+                        for(DisPlayPanel disPlayPanel:disPalyPanelVector){
+                            disPlayPanel.textField.setEditable(false);
+                            //disPlayPanel.textField.setText("");
+                        }
+//                        nameCNPanel.label.setForeground(Color.BLACK);
+//                        frontTelPanel.label.setForeground(Color.BLACK);
+//                        addressCNPanel.label.setForeground(Color.BLACK);
+//                        cityPanel.label.setForeground(Color.BLACK);
+                        table.getSelectionModel().removeListSelectionListener(d);
+                        }
+                    }
+                });
+                oldPanel.add(sbtn);
+                exitbtn=new JButton(GetLanguageName.getName("cancel"));
+                exitbtn.addActionListener(new ActionListener() {
+
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        tableModel.removeRow(tableModel.getRowCount()-1);
+                        upPanel.remove(oldPanel);
+                        upPanel.add(btnPanel);
+                        upPanel.validate();
+                        upPanel.repaint();
+                        for(DisPlayPanel disPlayPanel:disPalyPanelVector){
+                            disPlayPanel.textField.setEditable(false);
+                            //disPlayPanel.textField.setText("");
+                        }
+//                        nameCNPanel.label.setForeground(Color.BLACK);
+//                        frontTelPanel.label.setForeground(Color.BLACK);
+//                        addressCNPanel.label.setForeground(Color.BLACK);
+//                        cityPanel.label.setForeground(Color.BLACK);
+                        table.getSelectionModel().removeListSelectionListener(d);
+                    }
+                });
+                oldPanel.add(exitbtn);
+                upPanel.add(oldPanel,BorderLayout.NORTH);
+                upPanel.validate();
+                upPanel.repaint();
+                tableModel.addRow(new Vector());
+                for(DisPlayPanel disPlayPanel:disPalyPanelVector){
+                            disPlayPanel.textField.setEditable(true);
+                        }
+//                nameCNPanel.label.setForeground(Color.BLUE);
+//                frontTelPanel.label.setForeground(Color.BLUE);
+//                addressCNPanel.label.setForeground(Color.BLUE);
+//                cityPanel.label.setForeground(Color.BLUE);
+                table.setRowSelectionInterval(tableModel.getRowCount()-1, tableModel.getRowCount()-1);
+                table.getSelectionModel().addListSelectionListener(d);
+            }
+            
+        });
         btnPanel.add(newbtn);
         delbtn=new JButton(GetLanguageName.getName("deleteBtn"));
+        delbtn.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(table.getSelectedRow()!=-1){
+                if(JOptionPane.showConfirmDialog(DataOnly.mainFrame.maF, GetLanguageName.getName("delete"), "提示",
+                                      JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE)==0){
+                    try {
+                        PreparedStatement pstmt=DataOnly.conData.con.prepareStatement("Delete from EmployeeTB where Emp_Id=?");
+                        pstmt.setString(1, (String)tableModel.getValueAt(table.convertRowIndexToModel(table.getSelectedRow()), 0));
+                        pstmt.executeUpdate();
+                        tableModel.removeRow(table.convertRowIndexToModel(table.getSelectedRow()));
+                    } catch (SQLException ex) {
+                       JOptionPane.showMessageDialog(btnPanel, ex.getMessage());
+                    }
+                    
+                    
+                }}else{
+                    JOptionPane.showMessageDialog(DataOnly.mainFrame.maF, GetLanguageName.getName("chose"));
+                }
+            }
+        });
         btnPanel.add(delbtn);
         updatabtn=new JButton(GetLanguageName.getName("updataBtn"));
+        updatabtn.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(table.getSelectedRow()<0){
+                            JOptionPane.showMessageDialog(updatabtn, GetLanguageName.getName("chose"));
+                        }else{
+                final ListSelectionListener d=new ListSelectionListener() {
+
+                    @Override
+                    public void valueChanged(ListSelectionEvent e) {
+                        if(tableModel.getRowCount()!=0)
+                        table.setRowSelectionInterval(table.convertRowIndexToView(tableModel.getRowCount()-1), table.convertRowIndexToView(tableModel.getRowCount()-1));
+                    }
+                };
+                 final JPanel oldPanel;
+                upPanel.remove(btnPanel);
+                oldPanel=new JPanel();
+                oldPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+                JButton sbtn,exitbtn;
+                sbtn=new JButton(GetLanguageName.getName("ok"));
+                sbtn.addActionListener(new ActionListener() {
+
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        Vector<String> itemStrings=new Vector<>();
+                        boolean flag=false;
+                        for(DisPlayPanel disPlayPanel:disPalyPanelVector){
+                            String s=disPlayPanel.textField.getText();
+                            itemStrings.add(s);
+                            if(s.equals(""))flag=true;
+                        }
+                        if(flag){
+                            JOptionPane.showMessageDialog(upPanel, GetLanguageName.getName("empdiatel"));
+                        }else{
+                            try {
+                                PreparedStatement pstmt=DataOnly.conData.con.prepareStatement("update EmployeeTB set Name_Cn=?,Name_En=?,Gender=?,"
+                                        + "Dob=?,Mobile=?,Email=?,Address=? where Emp_Id=?");
+                                for(int i=1;i<itemStrings.size()-1;i++){
+                                    pstmt.setString(i, itemStrings.get(i));
+                                }
+                                pstmt.setString(8, itemStrings.get(0));
+                                pstmt.executeUpdate();
+                            } catch (SQLException ex) {
+                                JOptionPane.showMessageDialog(btnPanel, ex.getMessage());
+                            }
+                            }
+                        upPanel.remove(oldPanel);
+                        upPanel.add(btnPanel);
+                        upPanel.validate();
+                        upPanel.repaint();
+                        for(DisPlayPanel disPlayPanel:disPalyPanelVector){
+                            disPlayPanel.textField.setEditable(false);
+                           // disPlayPanel.textField.setText("");
+                        }
+//                        nameCNPanel.label.setForeground(Color.BLACK);
+//                        frontTelPanel.label.setForeground(Color.BLACK);
+//                        addressCNPanel.label.setForeground(Color.BLACK);
+//                        cityPanel.label.setForeground(Color.BLACK);
+                        table.getSelectionModel().removeListSelectionListener(d);
+                        }
+                
+                    
+                    
+            });
+                            oldPanel.add(sbtn);
+                exitbtn=new JButton(GetLanguageName.getName("cancel"));
+                exitbtn.addActionListener(new ActionListener() {
+
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        upPanel.remove(oldPanel);
+                        upPanel.add(btnPanel);
+                        upPanel.validate();
+                        upPanel.repaint();
+                        for(DisPlayPanel disPlayPanel:disPalyPanelVector){
+                            disPlayPanel.textField.setEditable(false);
+                            //disPlayPanel.textField.setText("");
+                        }
+//                        nameCNPanel.label.setForeground(Color.BLACK);
+//                        frontTelPanel.label.setForeground(Color.BLACK);
+//                        addressCNPanel.label.setForeground(Color.BLACK);
+//                        cityPanel.label.setForeground(Color.BLACK);
+                        table.getSelectionModel().removeListSelectionListener(d);
+                    }
+                });
+                oldPanel.add(exitbtn);
+                upPanel.add(oldPanel,BorderLayout.NORTH);
+                upPanel.validate();
+                upPanel.repaint();
+                for(DisPlayPanel disPlayPanel:disPalyPanelVector){
+                            disPlayPanel.textField.setEditable(true);
+                }
+                disPalyPanelVector.get(0).textField.setEditable(false);
+                disPalyPanelVector.get(8).textField.setEditable(false);
+//                nameCNPanel.label.setForeground(Color.BLUE);
+//                frontTelPanel.label.setForeground(Color.BLUE);
+//                addressCNPanel.label.setForeground(Color.BLUE);
+//                cityPanel.label.setForeground(Color.BLUE);
+                table.getSelectionModel().addListSelectionListener(d);
+            }}
+            }
+);
         btnPanel.add(updatabtn);
         tableModel=new DefaultTableModel(itemStrings, 0);
-        table=new JTable(tableModel);
+        table=new JTable(tableModel){
+            public boolean  isCellEditable(int row,int column){
+                return false;
+            }
+        };
         RowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tableModel);  
         table.setRowSorter(sorter); 
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -116,7 +356,7 @@ public class EmpManagementPanel extends JPanel{
                         row=table.convertRowIndexToModel(row);
                         for(int i=0;i<disPalyPanelVector.size();i++){
                             DisPlayPanel disPlayPanel=disPalyPanelVector.get(i);
-                            disPlayPanel.textField.setText((String)tableModel.getValueAt(row, i))
+                            disPlayPanel.textField.setText((String)tableModel.getValueAt(row, i));
                         }
                         }
                         
@@ -130,7 +370,7 @@ public class EmpManagementPanel extends JPanel{
         public JButton btn;
         private String[] itemStrings;
         public SelectDig(){
-            super(DataOnly.mainFrame.maF, "查询");
+            super(DataOnly.mainFrame.maF, GetLanguageName.getName("searchBtn"));
             this.setSize(750,200);
             this.setResizable(false);
             this.setLocationRelativeTo(null);
@@ -155,7 +395,7 @@ public class EmpManagementPanel extends JPanel{
                 }
             });
             final SelectDig self=this;
-            btn=new JButton("查询");
+            btn=new JButton(GetLanguageName.getName("searchBtn"));
             btn.addActionListener(new ActionListener() {
 
                 @Override

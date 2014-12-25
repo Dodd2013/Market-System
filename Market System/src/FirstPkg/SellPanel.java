@@ -51,7 +51,7 @@ public class SellPanel extends JPanel{
         upPanel.setLayout(new BorderLayout());
         this.add(upPanel,BorderLayout.NORTH);
         tabbedPane=new JTabbedPane();
-        tabbedPane.addTab("gfds",tablePanel);
+        tabbedPane.addTab(GetLanguageName.getName("sells"),tablePanel);
         tabbedPane.addTab(GetLanguageName.getName("sellDetail"), new SellDetailPanel());
         this.add(tabbedPane);
         upPanel.add(btnPanel,BorderLayout.NORTH);

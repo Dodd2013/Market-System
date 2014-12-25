@@ -7,7 +7,7 @@ create table EmployeeTB(
 Emp_Id varchar(4) primary key  not null check(Emp_Id like 'E___'),
 Name_Cn varchar(30) not null,
 Name_En varchar(30) null,
-Gender varchar(4)  constraint CK_Gender check(Gender in ('man','woman')) not null,
+Gender varchar(6)  constraint CK_Gender check(Gender in ('man','woman')) not null,
 Dob Date not null,  --生日
 Mobile char(11) unique, --手机号
 Email varchar(30) constraint CK_Email check(Email like '%@%'),
