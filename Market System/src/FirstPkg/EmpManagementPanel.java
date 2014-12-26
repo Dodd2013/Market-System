@@ -10,7 +10,6 @@ import DataReadpkg.DataOnly;
 import DataReadpkg.GetLanguageName;
 import Toolspkg.DisPlayPanel;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -26,7 +25,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -129,7 +127,8 @@ public class EmpManagementPanel extends JPanel{
                     public void actionPerformed(ActionEvent e) {
                         Vector<String> itemStrings=new Vector<>();
                         boolean flag=false;
-                        for(DisPlayPanel disPlayPanel:disPalyPanelVector){
+                        for(int i=0;i<disPalyPanelVector.size()-1;i++){
+                            DisPlayPanel disPlayPanel=disPalyPanelVector.get(i);
                             String s=disPlayPanel.textField.getText();
                             itemStrings.add(s);
                             if(s.equals(""))flag=true;
@@ -139,32 +138,21 @@ public class EmpManagementPanel extends JPanel{
                         }else{
                             try {
                                 PreparedStatement pstmt= DataOnly.conData.con.prepareStatement("insert into EmployeeTB values(?,?,?,?,?,?,?,?,getdate())");
-                                for(int i=0;i<itemStrings.size()-1;i++){
+                                for(int i=0;i<itemStrings.size();i++){
                                     pstmt.setString(i+1, itemStrings.get(i));
                                 }
                                 pstmt.executeUpdate();
-//                                pstmt=DataOnly.conData.con.prepareStatement("select * from CompanyTB where Front_Tel='"+fronttelString+"'");
-//                                ResultSet res=pstmt.executeQuery();
-//                                String cmpid=null;
-//                                while(res.next())
-//                                    cmpid=res.getString("Com_id");
-//                                table.setValueAt(cmpid, table.getSelectedRow(), 0);
+                                upPanel.remove(oldPanel);
+                                upPanel.add(btnPanel);
+                                upPanel.validate();
+                                upPanel.repaint();
+                                for(DisPlayPanel disPlayPanel:disPalyPanelVector){
+                                disPlayPanel.textField.setEditable(false);
+                                  }
+                        table.getSelectionModel().removeListSelectionListener(d);
                             } catch (SQLException ex) {
                                 JOptionPane.showMessageDialog(btnPanel, ex.getMessage());
                             }
-                        upPanel.remove(oldPanel);
-                        upPanel.add(btnPanel);
-                        upPanel.validate();
-                        upPanel.repaint();
-                        for(DisPlayPanel disPlayPanel:disPalyPanelVector){
-                            disPlayPanel.textField.setEditable(false);
-                            //disPlayPanel.textField.setText("");
-                        }
-//                        nameCNPanel.label.setForeground(Color.BLACK);
-//                        frontTelPanel.label.setForeground(Color.BLACK);
-//                        addressCNPanel.label.setForeground(Color.BLACK);
-//                        cityPanel.label.setForeground(Color.BLACK);
-                        table.getSelectionModel().removeListSelectionListener(d);
                         }
                     }
                 });
@@ -181,12 +169,7 @@ public class EmpManagementPanel extends JPanel{
                         upPanel.repaint();
                         for(DisPlayPanel disPlayPanel:disPalyPanelVector){
                             disPlayPanel.textField.setEditable(false);
-                            //disPlayPanel.textField.setText("");
                         }
-//                        nameCNPanel.label.setForeground(Color.BLACK);
-//                        frontTelPanel.label.setForeground(Color.BLACK);
-//                        addressCNPanel.label.setForeground(Color.BLACK);
-//                        cityPanel.label.setForeground(Color.BLACK);
                         table.getSelectionModel().removeListSelectionListener(d);
                     }
                 });
@@ -198,10 +181,7 @@ public class EmpManagementPanel extends JPanel{
                 for(DisPlayPanel disPlayPanel:disPalyPanelVector){
                             disPlayPanel.textField.setEditable(true);
                         }
-//                nameCNPanel.label.setForeground(Color.BLUE);
-//                frontTelPanel.label.setForeground(Color.BLUE);
-//                addressCNPanel.label.setForeground(Color.BLUE);
-//                cityPanel.label.setForeground(Color.BLUE);
+                disPalyPanelVector.get(disPalyPanelVector.size()-1).textField.setEditable(false);
                 table.setRowSelectionInterval(tableModel.getRowCount()-1, tableModel.getRowCount()-1);
                 table.getSelectionModel().addListSelectionListener(d);
             }
@@ -224,8 +204,6 @@ public class EmpManagementPanel extends JPanel{
                     } catch (SQLException ex) {
                        JOptionPane.showMessageDialog(btnPanel, ex.getMessage());
                     }
-                    
-                    
                 }}else{
                     JOptionPane.showMessageDialog(DataOnly.mainFrame.maF, GetLanguageName.getName("chose"));
                 }
@@ -286,12 +264,7 @@ public class EmpManagementPanel extends JPanel{
                         upPanel.repaint();
                         for(DisPlayPanel disPlayPanel:disPalyPanelVector){
                             disPlayPanel.textField.setEditable(false);
-                           // disPlayPanel.textField.setText("");
                         }
-//                        nameCNPanel.label.setForeground(Color.BLACK);
-//                        frontTelPanel.label.setForeground(Color.BLACK);
-//                        addressCNPanel.label.setForeground(Color.BLACK);
-//                        cityPanel.label.setForeground(Color.BLACK);
                         table.getSelectionModel().removeListSelectionListener(d);
                         }
                 
@@ -310,12 +283,7 @@ public class EmpManagementPanel extends JPanel{
                         upPanel.repaint();
                         for(DisPlayPanel disPlayPanel:disPalyPanelVector){
                             disPlayPanel.textField.setEditable(false);
-                            //disPlayPanel.textField.setText("");
                         }
-//                        nameCNPanel.label.setForeground(Color.BLACK);
-//                        frontTelPanel.label.setForeground(Color.BLACK);
-//                        addressCNPanel.label.setForeground(Color.BLACK);
-//                        cityPanel.label.setForeground(Color.BLACK);
                         table.getSelectionModel().removeListSelectionListener(d);
                     }
                 });
@@ -328,10 +296,6 @@ public class EmpManagementPanel extends JPanel{
                 }
                 disPalyPanelVector.get(0).textField.setEditable(false);
                 disPalyPanelVector.get(8).textField.setEditable(false);
-//                nameCNPanel.label.setForeground(Color.BLUE);
-//                frontTelPanel.label.setForeground(Color.BLUE);
-//                addressCNPanel.label.setForeground(Color.BLUE);
-//                cityPanel.label.setForeground(Color.BLUE);
                 table.getSelectionModel().addListSelectionListener(d);
             }}
             }
