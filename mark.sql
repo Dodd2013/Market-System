@@ -31,6 +31,7 @@ Per_Remarks varchar(80)  null
  password varchar(50) not null,
  Emp_Id varchar(4) foreign key references EmployeeTB not null
  )
+ select * from usersTB
  insert into EmployeeTB values ('E001','Dodd','Dodd','man','1995-09-25','15066817901','291106637@qq.com','青大汇园二号',getdate())
  insert into usersTB values('Dodd','3d4f2bf07dc1be38b20cd6e46949a1071f9d0e3d','E001')
  insert into ModelTB values (1001,'EMP Management','100EMP','增删改查')
@@ -59,6 +60,10 @@ Per_Remarks varchar(80)  null
  insert into PermissionTB values ('E002',2004,'---')
  insert into PermissionTB values ('E002',1003,'---')
 
+
+ ------------------------------------------------------
+ insert into ItemDetailTB values('笔','pen','晨光','晨光牌黑笔',2)
+  insert into inventoryTB values( 1,'货架一',2,'putaway')
  -------------------------------------------------------------------------------
  create table ItemDetailTB(  --销售商品表
  Item_Id int primary key identity(1,1) not null,
@@ -68,12 +73,15 @@ Per_Remarks varchar(80)  null
  descriptions varchar(300) null,
  price int not null
  )
- create table inventoryTB(  --库存表
+ 
+ create table inventoryTB(  --库存表 
+	Inventory_Id int primary key identity(1,1) not null,
 	Item_Id int references ItemDetailTB not null,
 	Address varchar(50) not null,
 	Item_Num int not null ,
 	Sell_Status varchar(10) not null check(Sell_Status ='putaway' or Sell_Status ='sold out')
  )
+
  create table sellTB(  --销售表
  sell_Id int primary key identity(1,1) not null,
  customer_Name varchar(50) not null,

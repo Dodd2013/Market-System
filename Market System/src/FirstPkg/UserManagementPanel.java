@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package FirstPkg;
 
 import DataReadpkg.DataOnly;
@@ -24,7 +23,6 @@ import java.util.Hashtable;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.Action;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
@@ -44,46 +42,55 @@ import javax.swing.table.TableRowSorter;
  *
  * @author Doddc
  */
-public class UserManagementPanel extends JPanel{
-    JPanel btnPanel,editPanel,upPanel;
+public class UserManagementPanel extends JPanel {
+
+    JPanel btnPanel, editPanel, upPanel;
     JScrollPane tablePanel;
-    JButton newbtn,delbtn,searchbtn,updatabtn;
-    JSeparator separator1,separator2;
+    JButton newbtn, delbtn, searchbtn, updatabtn;
+    JSeparator separator1, separator2;
     Vector<DisPlayPanel> disPalyPanelVector;
     String[] itemStrings;
     public JTable table;
     public DefaultTableModel tableModel;
     public TableModel model;
-    int itemNum=3;
-    public UserManagementPanel(){
-        disPalyPanelVector=new Vector<>();
+    int itemNum = 3;
+
+    public UserManagementPanel() {
+        disPalyPanelVector = new Vector<>();
         this.setLayout(new BorderLayout());
-        btnPanel=new JPanel();
+        btnPanel = new JPanel();
         btnPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-        editPanel=new JPanel();
+        editPanel = new JPanel();
         editPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
         editPanel.setPreferredSize(new Dimension(150, 150));
-        tablePanel=new JScrollPane();
-        upPanel=new JPanel();
+        tablePanel = new JScrollPane();
+        upPanel = new JPanel();
         upPanel.setLayout(new BorderLayout());
-        this.add(upPanel,BorderLayout.NORTH);
+        this.add(upPanel, BorderLayout.NORTH);
         this.add(tablePanel);
-        upPanel.add(btnPanel,BorderLayout.NORTH);
-        separator1=new JSeparator(JSeparator.HORIZONTAL);
+        upPanel.add(btnPanel, BorderLayout.NORTH);
+        separator1 = new JSeparator(JSeparator.HORIZONTAL);
         upPanel.add(separator1);
-        upPanel.add(editPanel,BorderLayout.SOUTH);
-        itemStrings=new String[]{
+        upPanel.add(editPanel, BorderLayout.SOUTH);
+        itemStrings = new String[]{
             GetLanguageName.getName("userName"),
             GetLanguageName.getName("passWord"),
             GetLanguageName.getName("empId")
         };
-        for(int i=0;i<itemNum;i++){
-            disPalyPanelVector.add(new DisPlayPanel(itemStrings[i]+":", DisPlayPanel.isDis));
-            editPanel.add(disPalyPanelVector.get(i));
+        for (int i = 0; i < itemNum; i++) {
+            disPalyPanelVector.add(new DisPlayPanel(itemStrings[i] + ":", DisPlayPanel.isDis));
+            final DisPlayPanel disPlayPanel = disPalyPanelVector.get(i);
+            final int j = i;
+            editPanel.add(disPlayPanel);
+            disPalyPanelVector.get(i).textField.addKeyListener(new KeyAdapter() {
+
+                public void keyReleased(KeyEvent e) {
+                    table.setValueAt(disPlayPanel.textField.getText(), table.getSelectedRow(), j);
+                }
+            });
         }
-            
-        
-        searchbtn=new JButton(GetLanguageName.getName("searchBtn"));
+
+        searchbtn = new JButton(GetLanguageName.getName("searchBtn"));
         searchbtn.addActionListener(new ActionListener() {
 
             @Override
@@ -91,169 +98,286 @@ public class UserManagementPanel extends JPanel{
                 new SelectDig();
             }
         });
-        btnPanel.add(searchbtn); 
-        newbtn=new JButton(GetLanguageName.getName("newBtn"));
-        btnPanel.add(newbtn);
-        delbtn=new JButton(GetLanguageName.getName("deleteBtn"));
-        btnPanel.add(delbtn);
-        updatabtn=new JButton(GetLanguageName.getName("updataBtn"));
-        updatabtn.addActionListener(new ActionListener() {
+        btnPanel.add(searchbtn);
+        newbtn = new JButton(GetLanguageName.getName("newBtn"));
+        newbtn.addActionListener(new ActionListener() {
+            ListSelectionListener d = new ListSelectionListener() {
+
+                @Override
+                public void valueChanged(ListSelectionEvent e) {
+                    if (tableModel.getRowCount() != 0) {
+                        table.setRowSelectionInterval(table.convertRowIndexToView(tableModel.getRowCount() - 1), table.convertRowIndexToView(tableModel.getRowCount() - 1));
+                    }
+                }
+            };
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(table.getSelectedRow()<0){
-                            JOptionPane.showMessageDialog(updatabtn, GetLanguageName.getName("chose"));
-                        }else{
-                final ListSelectionListener d=new ListSelectionListener() {
-
-                    @Override
-                    public void valueChanged(ListSelectionEvent e) {
-                        if(tableModel.getRowCount()!=0)
-                        table.setRowSelectionInterval(table.convertRowIndexToView(tableModel.getRowCount()-1), table.convertRowIndexToView(tableModel.getRowCount()-1));
-                    }
-                };
-                 final JPanel oldPanel;
+                final JPanel oldPanel;
                 upPanel.remove(btnPanel);
-                oldPanel=new JPanel();
+                oldPanel = new JPanel();
                 oldPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-                JButton sbtn,exitbtn;
-                sbtn=new JButton(GetLanguageName.getName("ok"));
+                JButton sbtn, exitbtn;
+                sbtn = new JButton(GetLanguageName.getName("ok"));
                 sbtn.addActionListener(new ActionListener() {
 
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        Vector<String> itemStrings=new Vector<>();
-                        boolean flag=false;
-                        for(DisPlayPanel disPlayPanel:disPalyPanelVector){
-                            String s=disPlayPanel.textField.getText();
+                        Vector<String> itemStrings = new Vector<>();
+                        boolean flag = false;
+                        for (int i = 0; i < disPalyPanelVector.size(); i++) {
+                            DisPlayPanel disPlayPanel = disPalyPanelVector.get(i);
+                            String s = disPlayPanel.textField.getText();
                             itemStrings.add(s);
-                            if(s.equals(""))flag=true;
+                            if (s.equals("")) {
+                                flag = true;
+                            }
                         }
-                        if(flag){
-                            JOptionPane.showMessageDialog(upPanel, GetLanguageName.getName("empdiatel"));
-                        }else{
+                        if (flag) {
+                            JOptionPane.showMessageDialog(DataOnly.mainFrame.maF, GetLanguageName.getName("empdiatel"));
+                        } else {
                             try {
-                                PreparedStatement pstmt=DataOnly.conData.con.prepareStatement("update usersTB set userid=?,password=? where Emp_Id=?");
-                                for(int i=0;i<itemStrings.size();i++){
-                                    pstmt.setString(i+1, itemStrings.get(i));
+                                PreparedStatement pstmt = DataOnly.conData.con.prepareStatement("insert into usersTB values(?,?,?)");
+                                for (int i = 0; i < itemStrings.size(); i++) {
+                                    pstmt.setString(i + 1, itemStrings.get(i));
                                 }
-                                pstmt.setString(2, EncoderHandler.encode("SHA1",itemStrings.get(1)));
+                                pstmt.setString(2, EncoderHandler.encode("SHA1", itemStrings.get(1)));
                                 pstmt.executeUpdate();
+                                upPanel.remove(oldPanel);
+                                upPanel.add(btnPanel);
+                                upPanel.validate();
+                                upPanel.repaint();
+                                for (DisPlayPanel disPlayPanel : disPalyPanelVector) {
+                                    disPlayPanel.textField.setEditable(false);
+                                }
+                                table.getSelectionModel().removeListSelectionListener(d);
                             } catch (SQLException ex) {
                                 JOptionPane.showMessageDialog(btnPanel, ex.getMessage());
                             }
-                            }
-                        upPanel.remove(oldPanel);
-                        upPanel.add(btnPanel);
-                        upPanel.validate();
-                        upPanel.repaint();
-                        for(DisPlayPanel disPlayPanel:disPalyPanelVector){
-                            disPlayPanel.textField.setEditable(false);
                         }
-                        table.getSelectionModel().removeListSelectionListener(d);
-                        }
-                
-                    
-                    
-            });
-                            oldPanel.add(sbtn);
-                exitbtn=new JButton(GetLanguageName.getName("cancel"));
+                    }
+                });
+                oldPanel.add(sbtn);
+                exitbtn = new JButton(GetLanguageName.getName("cancel"));
                 exitbtn.addActionListener(new ActionListener() {
 
                     @Override
                     public void actionPerformed(ActionEvent e) {
+                        tableModel.removeRow(tableModel.getRowCount() - 1);
                         upPanel.remove(oldPanel);
                         upPanel.add(btnPanel);
                         upPanel.validate();
                         upPanel.repaint();
-                        for(DisPlayPanel disPlayPanel:disPalyPanelVector){
+                        for (DisPlayPanel disPlayPanel : disPalyPanelVector) {
                             disPlayPanel.textField.setEditable(false);
                         }
                         table.getSelectionModel().removeListSelectionListener(d);
                     }
                 });
                 oldPanel.add(exitbtn);
-                upPanel.add(oldPanel,BorderLayout.NORTH);
+                upPanel.add(oldPanel, BorderLayout.NORTH);
                 upPanel.validate();
                 upPanel.repaint();
-                for(DisPlayPanel disPlayPanel:disPalyPanelVector){
-                            disPlayPanel.textField.setEditable(true);
+                tableModel.addRow(new Vector());
+                for (DisPlayPanel disPlayPanel : disPalyPanelVector) {
+                    disPlayPanel.textField.setEditable(true);
                 }
-                disPalyPanelVector.get(2).textField.setEditable(false);
+                table.setRowSelectionInterval(tableModel.getRowCount() - 1, tableModel.getRowCount() - 1);
                 table.getSelectionModel().addListSelectionListener(d);
-            }}
             }
-);
+
+        });
+        btnPanel.add(newbtn);
+        delbtn = new JButton(GetLanguageName.getName("deleteBtn"));
+        delbtn.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (table.getSelectedRow() != -1) {
+                    if (JOptionPane.showConfirmDialog(DataOnly.mainFrame.maF, GetLanguageName.getName("delete"), "提示",
+                            JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE) == 0) {
+                        try {
+                            PreparedStatement pstmt = DataOnly.conData.con.prepareStatement("Delete from usersTB where userid=?");
+                            pstmt.setString(1, (String) tableModel.getValueAt(table.convertRowIndexToModel(table.getSelectedRow()), 0));
+                            pstmt.executeUpdate();
+                            tableModel.removeRow(table.convertRowIndexToModel(table.getSelectedRow()));
+                        } catch (SQLException ex) {
+                            JOptionPane.showMessageDialog(btnPanel, ex.getMessage());
+                        }
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(DataOnly.mainFrame.maF, GetLanguageName.getName("chose"));
+                }
+            }
+        });
+        btnPanel.add(delbtn);
+        updatabtn = new JButton(GetLanguageName.getName("updataBtn"));
+        updatabtn.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (table.getSelectedRow() < 0) {
+                    JOptionPane.showMessageDialog(updatabtn, GetLanguageName.getName("chose"));
+                } else {
+                    final ListSelectionListener d = new ListSelectionListener() {
+
+                        @Override
+                        public void valueChanged(ListSelectionEvent e) {
+                            if (tableModel.getRowCount() != 0) {
+                                table.setRowSelectionInterval(table.convertRowIndexToView(tableModel.getRowCount() - 1), table.convertRowIndexToView(tableModel.getRowCount() - 1));
+                            }
+                        }
+                    };
+                    final JPanel oldPanel;
+                    upPanel.remove(btnPanel);
+                    oldPanel = new JPanel();
+                    oldPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+                    JButton sbtn, exitbtn;
+                    sbtn = new JButton(GetLanguageName.getName("ok"));
+                    sbtn.addActionListener(new ActionListener() {
+
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            Vector<String> itemStrings = new Vector<>();
+                            boolean flag = false;
+                            for (DisPlayPanel disPlayPanel : disPalyPanelVector) {
+                                String s = disPlayPanel.textField.getText();
+                                itemStrings.add(s);
+                                if (s.equals("")) {
+                                    flag = true;
+                                }
+                            }
+                            if (flag) {
+                                JOptionPane.showMessageDialog(upPanel, GetLanguageName.getName("empdiatel"));
+                            } else {
+                                try {
+                                    PreparedStatement pstmt = DataOnly.conData.con.prepareStatement("update usersTB set userid=?,password=? where Emp_Id=?");
+                                    for (int i = 0; i < itemStrings.size(); i++) {
+                                        pstmt.setString(i + 1, itemStrings.get(i));
+                                    }
+                                    pstmt.setString(2, EncoderHandler.encode("SHA1", itemStrings.get(1)));
+                                    pstmt.executeUpdate();
+                                } catch (SQLException ex) {
+                                    JOptionPane.showMessageDialog(btnPanel, ex.getMessage());
+                                }
+                            }
+                            upPanel.remove(oldPanel);
+                            upPanel.add(btnPanel);
+                            upPanel.validate();
+                            upPanel.repaint();
+                            for (DisPlayPanel disPlayPanel : disPalyPanelVector) {
+                                disPlayPanel.textField.setEditable(false);
+                            }
+                            table.getSelectionModel().removeListSelectionListener(d);
+                        }
+
+                    });
+                    oldPanel.add(sbtn);
+                    exitbtn = new JButton(GetLanguageName.getName("cancel"));
+                    exitbtn.addActionListener(new ActionListener() {
+
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            upPanel.remove(oldPanel);
+                            upPanel.add(btnPanel);
+                            upPanel.validate();
+                            upPanel.repaint();
+                            for (DisPlayPanel disPlayPanel : disPalyPanelVector) {
+                                disPlayPanel.textField.setEditable(false);
+                            }
+                            table.getSelectionModel().removeListSelectionListener(d);
+                        }
+                    });
+                    oldPanel.add(exitbtn);
+                    upPanel.add(oldPanel, BorderLayout.NORTH);
+                    upPanel.validate();
+                    upPanel.repaint();
+                    for (DisPlayPanel disPlayPanel : disPalyPanelVector) {
+                        disPlayPanel.textField.setEditable(true);
+                    }
+                    disPalyPanelVector.get(2).textField.setEditable(false);
+                    table.getSelectionModel().addListSelectionListener(d);
+                }
+            }
+        }
+        );
         btnPanel.add(updatabtn);
-        tableModel=new DefaultTableModel(itemStrings, 0);
-        table=new JTable(tableModel);
+        tableModel = new DefaultTableModel(itemStrings, 0);
+        table = new JTable(tableModel) {
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
         tablePanel.setViewportView(table);
-        RowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tableModel);  
-        table.setRowSorter(sorter); 
+        RowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tableModel);
+        table.setRowSorter(sorter);
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         table.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
-           table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+        table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 
-                    @Override
-                    public void valueChanged(ListSelectionEvent e) {
-                        int row=table.getSelectedRow();
-                        if(row!=-1){
-                        row=table.convertRowIndexToModel(row);
-                        for(int i=0;i<disPalyPanelVector.size();i++){
-                            DisPlayPanel disPlayPanel=disPalyPanelVector.get(i);
-                            disPlayPanel.textField.setText((String)tableModel.getValueAt(row, i));
-                        }
-                        }
-                        
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                int row = table.getSelectedRow();
+                if (row != -1) {
+                    row = table.convertRowIndexToModel(row);
+                    for (int i = 0; i < disPalyPanelVector.size(); i++) {
+                        DisPlayPanel disPlayPanel = disPalyPanelVector.get(i);
+                        disPlayPanel.textField.setText((String) tableModel.getValueAt(row, i));
                     }
-                });
+                }
+
+            }
+        });
     }
-     private class SelectDig extends JDialog{
+
+    private class SelectDig extends JDialog {
+
         public PreparedStatement pstmt;
-        private Vector<DisPlayPanel> disPlayPanels=new Vector<>();
+        private Vector<DisPlayPanel> disPlayPanels = new Vector<>();
         public JButton btn;
         private String[] itemStrings;
-        public SelectDig(){
+
+        public SelectDig() {
             super(DataOnly.mainFrame.maF, GetLanguageName.getName("searchBtn"));
-            this.setSize(750,200);
+            this.setSize(750, 200);
             this.setResizable(false);
             this.setLocationRelativeTo(null);
             this.setLayout(new FlowLayout(FlowLayout.LEFT));
             this.setFocusable(true);
-            itemStrings=new String[]{
-            GetLanguageName.getName("userName"),
-            GetLanguageName.getName("empId")
-        };
-        for(int i=0;i<2;i++){
-            disPlayPanels.add(new DisPlayPanel(itemStrings[i]+":", DisPlayPanel.isSelect));
-            this.add(disPlayPanels.get(i));
-            y(disPlayPanels.get(i));
-        }
+            itemStrings = new String[]{
+                GetLanguageName.getName("userName"),
+                GetLanguageName.getName("empId")
+            };
+            for (int i = 0; i < 2; i++) {
+                disPlayPanels.add(new DisPlayPanel(itemStrings[i] + ":", DisPlayPanel.isSelect));
+                this.add(disPlayPanels.get(i));
+                y(disPlayPanels.get(i));
+            }
             this.addKeyListener(new KeyAdapter() {
                 public void keyPressed(KeyEvent e) {
-                    if(e.getKeyChar()=='\n'){
+                    if (e.getKeyChar() == '\n') {
                         btn.doClick();
                     }
                 }
             });
-            final SelectDig self=this;
-            btn=new JButton(GetLanguageName.getName("searchBtn"));
+            final SelectDig self = this;
+            btn = new JButton(GetLanguageName.getName("searchBtn"));
             btn.addActionListener(new ActionListener() {
 
                 @Override
                 public void actionPerformed(ActionEvent e) {
-               for(int i=0;i<2;i++){
-                f(disPlayPanels.get(i),i+1);
-              }
+                    for (int i = 0; i < 2; i++) {
+                        f(disPlayPanels.get(i), i + 1);
+                    }
                     try {
-                        Hashtable htable=new Hashtable<>();
-                        ResultSet res=pstmt.executeQuery();
-                        for(int i=0,j=tableModel.getRowCount();i<j;i++){
-                           tableModel.removeRow(0); 
+                        Hashtable htable = new Hashtable<>();
+                        ResultSet res = pstmt.executeQuery();
+                        for (int i = 0, j = tableModel.getRowCount(); i < j; i++) {
+                            tableModel.removeRow(0);
                         }
                         table.validate();
-                        for(int i=0;res.next();i++){
-                            Vector<String> v=new Vector<>();
+                        for (int i = 0; res.next(); i++) {
+                            Vector<String> v = new Vector<>();
                             v.add(res.getString("userid"));
                             v.add("*********");
                             v.add(res.getString("Emp_Id"));
@@ -269,39 +393,41 @@ public class UserManagementPanel extends JPanel{
             this.add(btn);
             this.setVisible(true);
             try {
-                pstmt=DataOnly.conData.con.prepareStatement("select * from usersTB where userid like ? and Emp_Id like ?");
-                
+                pstmt = DataOnly.conData.con.prepareStatement("select * from usersTB where userid like ? and Emp_Id like ?");
+
             } catch (SQLException ex) {
                 Logger.getLogger(CompanyPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        private  void y(DisPlayPanel disPanelSon){
+
+        private void y(DisPlayPanel disPanelSon) {
             disPanelSon.textField.setEditable(true);
             disPanelSon.textField.addKeyListener(new KeyAdapter() {
                 @Override
                 public void keyPressed(KeyEvent e) {
-                    if(e.getKeyChar()=='\n'){
+                    if (e.getKeyChar() == '\n') {
                         btn.doClick();
                     }
                 }
             });
         }
-        private void f(DisPlayPanel disPanelSon,int i){
+
+        private void f(DisPlayPanel disPanelSon, int i) {
             try {
-                if(!disPanelSon.textField.getText().equals("")){
-                    if(((String)disPanelSon.comboBox.getSelectedItem()).equals(">")){
-                        pstmt.setString(i,"%"+disPanelSon.textField.getText()+"%");
-                    }else{
+                if (!disPanelSon.textField.getText().equals("")) {
+                    if (((String) disPanelSon.comboBox.getSelectedItem()).equals(">")) {
+                        pstmt.setString(i, "%" + disPanelSon.textField.getText() + "%");
+                    } else {
                         pstmt.setString(i, disPanelSon.textField.getText());
                     }
-                    
-                }else{
-                   pstmt.setString(i, "%");
+
+                } else {
+                    pstmt.setString(i, "%");
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(CompanyPanel.class.getName()).log(Level.SEVERE, null, ex);
             }
-         
+
         }
     }
 }
