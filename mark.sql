@@ -64,6 +64,7 @@ Per_Remarks varchar(80)  null
  ------------------------------------------------------
  insert into ItemDetailTB values('笔','pen','晨光','晨光牌黑笔',2)
   insert into inventoryTB values( 1,'货架一',2,'putaway')
+   insert into sellTB values('Dodd','2014-05-06',50,'E001')
  -------------------------------------------------------------------------------
  create table ItemDetailTB(  --销售商品表
  Item_Id int primary key identity(1,1) not null,
@@ -86,7 +87,8 @@ Per_Remarks varchar(80)  null
  sell_Id int primary key identity(1,1) not null,
  customer_Name varchar(50) not null,
  sell_Date date not null,
- money_Sum int not null
+ money_Sum int not null,
+ Emp_Id varchar(4) foreign  key references EmployeeTB(Emp_Id) not null
  )
  create table sellDetailTB(  --销售详细表
 	sell_Id int references sellTB not null,

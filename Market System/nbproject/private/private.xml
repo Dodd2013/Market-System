@@ -3,21 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/GitHub/Market-System/Market%20System/src/FirstPkg/ItemDetailManagementPanel.java</file>
-            <file>file:/E:/GitHub/Market-System/Market%20System/src/MainPkg/NewTab.java</file>
             <file>file:/E:/GitHub/Market-System/Market%20System/src/FirstPkg/SellPanel.java</file>
-            <file>file:/E:/GitHub/Market-System/Market%20System/src/MainPkg/LoginMain.java</file>
-            <file>file:/E:/GitHub/Market-System/Market%20System/src/FirstPkg/EmpEMPPanel.java</file>
-            <file>file:/E:/GitHub/Market-System/Market%20System/src/FirstPkg/InventoryEMPPanel.java</file>
-            <file>file:/E:/GitHub/Market-System/Market%20System/src/MainPkg/GetPanel.java</file>
-            <file>file:/E:/GitHub/Market-System/Market%20System/src/MainPkg/InitAll.java</file>
-            <file>file:/E:/GitHub/Market-System/Market%20System/src/FirstPkg/ItemDetailEMPPanel.java</file>
-            <file>file:/E:/GitHub/Market-System/Market%20System/src/MainPkg/MainFrame.java</file>
             <file>file:/E:/GitHub/Market-System/Market%20System/src/FirstPkg/EmpManagementPanel.java</file>
-            <file>file:/E:/GitHub/Market-System/Market%20System/src/MainPkg/NagJTreeRoot.java</file>
-            <file>file:/E:/GitHub/Market-System/Market%20System/src/FirstPkg/InventoryManagementPanel.java</file>
-            <file>file:/E:/GitHub/Market-System/Market%20System/src/Language_en_US.properties</file>
-            <file>file:/E:/GitHub/Market-System/Market%20System/src/Language_zh_CN.properties</file>
+            <file>file:/E:/GitHub/Market-System/Market%20System/src/FirstPkg/SellDetailPanel.java</file>
         </group>
     </open-files>
 </project-private>
