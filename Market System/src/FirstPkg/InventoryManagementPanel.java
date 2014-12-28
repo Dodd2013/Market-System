@@ -350,7 +350,8 @@ public class InventoryManagementPanel extends JPanel {
                 GetLanguageName.getName("itemId"),
                 GetLanguageName.getName("address"),
                 GetLanguageName.getName("itemNum"),
-                GetLanguageName.getName("sellStatus"),};
+                GetLanguageName.getName("sellStatus")
+            };
             for (int i = 0; i < 5; i++) {
                 disPlayPanels.add(new DisPlayPanel(itemStrings[i] + ":", DisPlayPanel.isSelect));
                 this.add(disPlayPanels.get(i));

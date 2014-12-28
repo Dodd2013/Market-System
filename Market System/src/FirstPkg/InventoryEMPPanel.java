@@ -29,8 +29,13 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+import javax.swing.RowSorter;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -87,10 +92,30 @@ public class InventoryEMPPanel extends JPanel {
         });
         btnPanel.add(searchbtn);
         tableModel = new DefaultTableModel(itemStrings, 0);
-        table = new JTable(tableModel);
+        table = new JTable(tableModel) {
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        RowSorter<TableModel> sorter = new TableRowSorter<TableModel>(tableModel);
+        table.setRowSorter(sorter);
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tablePanel.setViewportView(table);
-        table.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
-        //TableTools.adjustTableColumnWidths(table);
+        table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                int row = table.getSelectedRow();
+                if (row != -1) {
+                    row = table.convertRowIndexToModel(row);
+                    for (int i = 0; i < disPalyPanelVector.size(); i++) {
+                        DisPlayPanel disPlayPanel = disPalyPanelVector.get(i);
+                        disPlayPanel.textField.setText((String) tableModel.getValueAt(row, i));
+                    }
+                }
+
+            }
+        });
     }
 
     private class SelectDig extends JDialog {
