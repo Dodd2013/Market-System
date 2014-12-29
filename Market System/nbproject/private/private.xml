@@ -1,50 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-<<<<<<< HEAD
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/D:/Dodd/Market-System/Market%20System/src/ClientServerPkg/UserMsgHandle.java</file>
-            <file>file:/D:/Dodd/Market-System/Market%20System/src/FirstPkg/UserManagementPanel.java</file>
-            <file>file:/D:/Dodd/Market-System/Market%20System/src/ClientServerPkg/ServerCMD.java</file>
-            <file>file:/D:/Dodd/Market-System/Market%20System/src/ClientServerPkg/ClientServerClass.java</file>
-            <file>file:/D:/Dodd/Market-System/Market%20System/src/FirstPkg/InventoryManagementPanel.java</file>
-            <file>file:/D:/Dodd/Market-System/Market%20System/src/ChatPkg/ChatMainFrame.java</file>
-            <file>file:/D:/Dodd/Market-System/Market%20System/src/FirstPkg/EmpManagementPanel.java</file>
-            <file>file:/D:/Dodd/Market-System/Market%20System/src/FirstPkg/ItemDetailManagementPanel.java</file>
-            <file>file:/D:/Dodd/Market-System/Market%20System/src/Language_en_US.properties</file>
-            <file>file:/D:/Dodd/Market-System/Market%20System/src/MainPkg/GetPanel.java</file>
-            <file>file:/D:/Dodd/Market-System/Market%20System/src/Language_zh_CN.properties</file>
-=======
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
-        <file>
-            <url>src/MainPkg/GetPanel.java</url>
-            <bookmark id="1">
-                <name/>
-                <line>30</line>
-                <key/>
-            </bookmark>
-        </file>
-    </editor-bookmarks>
-    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/E:/GitHub/Market-System/Market%20System/src/FirstPkg/ItemDetailManagementPanel.java</file>
-            <file>file:/E:/GitHub/Market-System/Market%20System/src/Toolspkg/DisPlayPanel.java</file>
-            <file>file:/E:/GitHub/Market-System/Market%20System/src/FirstPkg/SellPanel.java</file>
-            <file>file:/E:/GitHub/Market-System/Market%20System/src/Toolspkg/TableTools.java</file>
-            <file>file:/E:/GitHub/Market-System/Market%20System/src/FirstPkg/SellDetailPanel.java</file>
-            <file>file:/E:/GitHub/Market-System/Market%20System/src/Toolspkg/EncoderHandler.java</file>
-            <file>file:/E:/GitHub/Market-System/Market%20System/src/Toolspkg/CheckString.java</file>
-            <file>file:/E:/GitHub/Market-System/Market%20System/src/Toolspkg/SelectAllWhileGetFocusJTF.java</file>
-            <file>file:/E:/GitHub/Market-System/Market%20System/src/FirstPkg/SalesPerformancePanel.java</file>
-            <file>file:/E:/GitHub/Market-System/Market%20System/src/MainPkg/InitAll.java</file>
-            <file>file:/E:/GitHub/Market-System/Market%20System/src/FirstPkg/EmpManagementPanel.java</file>
-            <file>file:/E:/GitHub/Market-System/Market%20System/src/Toolspkg/PkgClass.java</file>
-            <file>file:/E:/GitHub/Market-System/Market%20System/src/DataBasePkg/ConnectedDatabase.java</file>
-            <file>file:/E:/GitHub/Market-System/Market%20System/src/Language_en_US.properties</file>
-            <file>file:/E:/GitHub/Market-System/Market%20System/src/DataReadpkg/DataOnly.java</file>
-            <file>file:/E:/GitHub/Market-System/Market%20System/src/Language_zh_CN.properties</file>
->>>>>>> origin/master
-        </group>
+        <group/>
     </open-files>
 </project-private>
