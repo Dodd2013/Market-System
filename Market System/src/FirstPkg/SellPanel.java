@@ -55,7 +55,8 @@ public class SellPanel extends JPanel {
     public DefaultTableModel tableModel;
     public TableModel model;
     public SellDetailPanel sellDetailPanel;
-    int itemNum = 4;
+    public boolean newAndUpdata=false;
+    int itemNum = 5;
 
     public SellPanel() {
         disPalyPanelVector = new Vector<>();
@@ -106,6 +107,7 @@ public class SellPanel extends JPanel {
                 new SelectDig();
             }
         });
+        btnPanel.add(searchbtn);
         newbtn = new JButton(GetLanguageName.getName("newBtn"));
         newbtn.addActionListener(new ActionListener() {
             ListSelectionListener d = new ListSelectionListener() {
@@ -123,6 +125,7 @@ public class SellPanel extends JPanel {
                 final JPanel oldPanel;
                 upPanel.remove(btnPanel);
                 oldPanel = new JPanel();
+                newAndUpdata=true;
                 oldPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
                 JButton sbtn, exitbtn;
                 sbtn = new JButton(GetLanguageName.getName("ok"));
@@ -130,6 +133,7 @@ public class SellPanel extends JPanel {
 
                     @Override
                     public void actionPerformed(ActionEvent e) {
+                        newAndUpdata=false;
                         Vector<String> itemStrings = new Vector<>();
                         boolean flag = false;
                         for (int i = 1; i < disPalyPanelVector.size(); i++) {
@@ -171,6 +175,7 @@ public class SellPanel extends JPanel {
                     public void actionPerformed(ActionEvent e) {
                         tableModel.removeRow(tableModel.getRowCount() - 1);
                         upPanel.remove(oldPanel);
+                        newAndUpdata=false;
                         upPanel.add(btnPanel);
                         upPanel.validate();
                         upPanel.repaint();
@@ -178,6 +183,9 @@ public class SellPanel extends JPanel {
                             disPlayPanel.textField.setEditable(false);
                         }
                         table.getSelectionModel().removeListSelectionListener(d);
+                        JPanel selldetilUppanel=(JPanel)sellDetailPanel.upPanel.getComponent(2);
+                       // System.out.println(((JButton)selldetilUppanel.getComponent(1)).getText());
+                        if(((JButton)selldetilUppanel.getComponent(1)).getText().equals(GetLanguageName.getName("cancel")))((JButton)selldetilUppanel.getComponent(1)).doClick();
                     }
                 });
                 oldPanel.add(exitbtn);
@@ -197,7 +205,6 @@ public class SellPanel extends JPanel {
             }
 
         });
-        btnPanel.add(searchbtn);
         btnPanel.add(newbtn);
         delbtn = new JButton(GetLanguageName.getName("deleteBtn"));
          delbtn.addActionListener(new ActionListener() {
@@ -227,6 +234,7 @@ public class SellPanel extends JPanel {
 
             @Override
             public void actionPerformed(ActionEvent e) {
+                newAndUpdata=true;
                 if (table.getSelectedRow() < 0) {
                     JOptionPane.showMessageDialog(updatabtn, GetLanguageName.getName("chose"));
                 } else {
@@ -249,6 +257,7 @@ public class SellPanel extends JPanel {
 
                         @Override
                         public void actionPerformed(ActionEvent e) {
+                            newAndUpdata=false;
                             Vector<String> itemStrings = new Vector<>();
                             boolean flag = false;
                             for (DisPlayPanel disPlayPanel : disPalyPanelVector) {
@@ -262,7 +271,7 @@ public class SellPanel extends JPanel {
                                 JOptionPane.showMessageDialog(upPanel, GetLanguageName.getName("empdiatel"));
                             } else {
                                 try {
-                                    PreparedStatement pstmt = DataOnly.conData.con.prepareStatement("update sellTB set customer_Name=?,sell_Date=?,money_Sum=? where sell_Id=?");
+                                    PreparedStatement pstmt = DataOnly.conData.con.prepareStatement("update sellTB set customer_Name=?,sell_Date=?,money_Sum=?,Emp_Id=? where sell_Id=?");
                                     for (int i = 1; i < itemStrings.size(); i++) {
                                         pstmt.setString(i, itemStrings.get(i));
                                     }
@@ -289,6 +298,7 @@ public class SellPanel extends JPanel {
 
                         @Override
                         public void actionPerformed(ActionEvent e) {
+                            newAndUpdata=false;
                             upPanel.remove(oldPanel);
                             upPanel.add(btnPanel);
                             upPanel.validate();
@@ -359,9 +369,9 @@ public class SellPanel extends JPanel {
                 GetLanguageName.getName("customerName"),
                 GetLanguageName.getName("sellDate"),
                 GetLanguageName.getName("moneySum"),
-                GetLanguageName.getName("empId"),
+                GetLanguageName.getName("empId")
             };
-            for (int i = 0; i < 4; i++) {
+            for (int i = 0; i < 5; i++) {
                 disPlayPanels.add(new DisPlayPanel(itemStrings[i] + ":", DisPlayPanel.isSelect));
                 this.add(disPlayPanels.get(i));
                 y(disPlayPanels.get(i));
@@ -379,7 +389,7 @@ public class SellPanel extends JPanel {
 
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    for (int i = 0; i < 4; i++) {
+                    for (int i = 0; i < 5; i++) {
                         f(disPlayPanels.get(i), i + 1);
                     }
                     try {
@@ -408,7 +418,7 @@ public class SellPanel extends JPanel {
             this.add(btn);
             this.setVisible(true);
             try {
-                pstmt = DataOnly.conData.con.prepareStatement("select * from sellTB where sell_Id like ? and customer_Name like ? and sell_Date like ? and money_Sum like ?");
+                pstmt = DataOnly.conData.con.prepareStatement("select * from sellTB where sell_Id like ? and customer_Name like ? and sell_Date like ? and money_Sum like ? and Emp_Id like ?");
 
             } catch (SQLException ex) {
                 Logger.getLogger(CompanyPanel.class.getName()).log(Level.SEVERE, null, ex);

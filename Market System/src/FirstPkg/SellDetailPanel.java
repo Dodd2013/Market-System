@@ -47,10 +47,10 @@ public class SellDetailPanel extends JPanel {
     public JTable table;
     public DefaultTableModel tableModel;
     public TableModel model;
-    public JPanel sellPanel;
+    public SellPanel sellPanel;
     int itemNum = 5;
 
-    public SellDetailPanel(JPanel sellPanel) {
+    public SellDetailPanel(final SellPanel sellPanel) {
         this.sellPanel = sellPanel;
         disPalyPanelVector = new Vector<>();
         this.setLayout(new BorderLayout());
@@ -101,80 +101,82 @@ public class SellDetailPanel extends JPanel {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                final JPanel oldPanel;
-                upPanel.remove(btnPanel);
-                oldPanel = new JPanel();
-                oldPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
-                JButton sbtn, exitbtn;
-                sbtn = new JButton(GetLanguageName.getName("ok"));
-                sbtn.addActionListener(new ActionListener() {
+                if (sellPanel.newAndUpdata) {
+                    final JPanel oldPanel;
+                    upPanel.remove(btnPanel);
+                    oldPanel = new JPanel();
+                    oldPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+                    JButton sbtn, exitbtn;
+                    sbtn = new JButton(GetLanguageName.getName("ok"));
+                    sbtn.addActionListener(new ActionListener() {
 
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        Vector<String> itemStrings = new Vector<>();
-                        boolean flag = false;
-                        for (int i = 1; i < disPalyPanelVector.size(); i++) {
-                            DisPlayPanel disPlayPanel = disPalyPanelVector.get(i);
-                            String s = disPlayPanel.textField.getText();
-                            itemStrings.add(s);
-                            if (s.equals("")) {
-                                flag = true;
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            Vector<String> itemStrings = new Vector<>();
+                            boolean flag = false;
+                            for (int i = 1; i < disPalyPanelVector.size(); i++) {
+                                DisPlayPanel disPlayPanel = disPalyPanelVector.get(i);
+                                String s = disPlayPanel.textField.getText();
+                                itemStrings.add(s);
+                                if (s.equals("")) {
+                                    flag = true;
+                                }
+                            }
+                            if (flag) {
+                                JOptionPane.showMessageDialog(DataOnly.mainFrame.maF, GetLanguageName.getName("empdiatel"));
+                            } else {
+                                try {
+                                    PreparedStatement pstmt = DataOnly.conData.con.prepareStatement("insert into sellTB values(?,?,?)");
+                                    for (int i = 0; i < itemStrings.size(); i++) {
+                                        pstmt.setString(i + 1, itemStrings.get(i));
+                                    }
+                                    pstmt.executeUpdate();
+                                    upPanel.remove(oldPanel);
+                                    upPanel.add(btnPanel);
+                                    upPanel.validate();
+                                    upPanel.repaint();
+                                    for (DisPlayPanel disPlayPanel : disPalyPanelVector) {
+                                        disPlayPanel.textField.setEditable(false);
+                                    }
+                                    table.getSelectionModel().removeListSelectionListener(d);
+                                } catch (SQLException ex) {
+                                    JOptionPane.showMessageDialog(btnPanel, ex.getMessage());
+                                }
                             }
                         }
-                        if (flag) {
-                            JOptionPane.showMessageDialog(DataOnly.mainFrame.maF, GetLanguageName.getName("empdiatel"));
-                        } else {
-                            try {
-                                PreparedStatement pstmt = DataOnly.conData.con.prepareStatement("insert into sellTB values(?,?,?)");
-                                for (int i = 0; i < itemStrings.size(); i++) {
-                                    pstmt.setString(i + 1, itemStrings.get(i));
-                                }
-                                pstmt.executeUpdate();
-                                upPanel.remove(oldPanel);
-                                upPanel.add(btnPanel);
-                                upPanel.validate();
-                                upPanel.repaint();
-                                for (DisPlayPanel disPlayPanel : disPalyPanelVector) {
-                                    disPlayPanel.textField.setEditable(false);
-                                }
-                                table.getSelectionModel().removeListSelectionListener(d);
-                            } catch (SQLException ex) {
-                                JOptionPane.showMessageDialog(btnPanel, ex.getMessage());
-                            }
-                        }
-                    }
-                });
-                oldPanel.add(sbtn);
-                exitbtn = new JButton(GetLanguageName.getName("cancel"));
-                exitbtn.addActionListener(new ActionListener() {
+                    });
+                    oldPanel.add(sbtn);
+                    exitbtn = new JButton(GetLanguageName.getName("cancel"));
+                    exitbtn.addActionListener(new ActionListener() {
 
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        tableModel.removeRow(tableModel.getRowCount() - 1);
-                        upPanel.remove(oldPanel);
-                        upPanel.add(btnPanel);
-                        upPanel.validate();
-                        upPanel.repaint();
-                        for (DisPlayPanel disPlayPanel : disPalyPanelVector) {
-                            disPlayPanel.textField.setEditable(false);
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            tableModel.removeRow(tableModel.getRowCount() - 1);
+                            upPanel.remove(oldPanel);
+                            upPanel.add(btnPanel);
+                            upPanel.validate();
+                            upPanel.repaint();
+                            for (DisPlayPanel disPlayPanel : disPalyPanelVector) {
+                                disPlayPanel.textField.setEditable(false);
+                            }
+                            table.getSelectionModel().removeListSelectionListener(d);
                         }
-                        table.getSelectionModel().removeListSelectionListener(d);
+                    });
+                    oldPanel.add(exitbtn);
+                    upPanel.add(oldPanel, BorderLayout.NORTH);
+                    upPanel.validate();
+                    upPanel.repaint();
+                    tableModel.addRow(new Vector());
+                    for (DisPlayPanel disPlayPanel : disPalyPanelVector) {
+                        disPlayPanel.textField.setEditable(true);
                     }
-                });
-                oldPanel.add(exitbtn);
-                upPanel.add(oldPanel, BorderLayout.NORTH);
-                upPanel.validate();
-                upPanel.repaint();
-                tableModel.addRow(new Vector());
-                for (DisPlayPanel disPlayPanel : disPalyPanelVector) {
-                    disPlayPanel.textField.setEditable(true);
+                    disPalyPanelVector.get(0).textField.setEditable(false);
+                    disPalyPanelVector.get(3).textField.setEditable(false);
+                    table.setRowSelectionInterval(tableModel.getRowCount() - 1, tableModel.getRowCount() - 1);
+                    table.getSelectionModel().addListSelectionListener(d);
                 }
-                disPalyPanelVector.get(0).textField.setEditable(false);
-                disPalyPanelVector.get(3).textField.setEditable(false);
-                table.setRowSelectionInterval(tableModel.getRowCount() - 1, tableModel.getRowCount() - 1);
-                table.getSelectionModel().addListSelectionListener(d);
-            }
 
+            }
         });
         btnPanel.add(newbtn);
         delbtn = new JButton(GetLanguageName.getName("deleteBtn"));
