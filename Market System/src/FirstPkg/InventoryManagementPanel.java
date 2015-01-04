@@ -52,7 +52,7 @@ public class InventoryManagementPanel extends JPanel {
     public JTable table;
     public DefaultTableModel tableModel;
     public TableModel model;
-    int itemNum = 5;
+    int itemNum = 7;
 
     public InventoryManagementPanel() {
         disPalyPanelVector = new Vector<>();
@@ -74,6 +74,8 @@ public class InventoryManagementPanel extends JPanel {
         itemStrings = new String[]{
             GetLanguageName.getName("inventoryId"),
             GetLanguageName.getName("itemId"),
+            GetLanguageName.getName("itemNameCN"),
+            GetLanguageName.getName("itemNameEN"),
             GetLanguageName.getName("address"),
             GetLanguageName.getName("itemNum"),
             GetLanguageName.getName("sellStatus")
@@ -130,7 +132,7 @@ public class InventoryManagementPanel extends JPanel {
                             DisPlayPanel disPlayPanel = disPalyPanelVector.get(i);
                             String s = disPlayPanel.textField.getText();
                             itemStrings.add(s);
-                            if (s.equals("")) {
+                            if (s.equals("")&&i!=2&&i!=3) {
                                 flag = true;
                             }
                         }
@@ -139,9 +141,10 @@ public class InventoryManagementPanel extends JPanel {
                         } else {
                             try {
                                 PreparedStatement pstmt = DataOnly.conData.con.prepareStatement("insert into inventoryTB values(?,?,?,?)");
-                                for (int i = 0; i < itemStrings.size(); i++) {
-                                    pstmt.setString(i + 1, itemStrings.get(i));
-                                }
+                                pstmt.setString( 1, itemStrings.get(0));
+                                pstmt.setString(2, itemStrings.get(3));
+                                pstmt.setString(3, itemStrings.get(4));
+                                pstmt.setString(4, itemStrings.get(5));
                                 pstmt.executeUpdate();
                                 upPanel.remove(oldPanel);
                                 upPanel.add(btnPanel);
@@ -183,6 +186,8 @@ public class InventoryManagementPanel extends JPanel {
                     disPlayPanel.textField.setEditable(true);
                 }
                 disPalyPanelVector.get(0).textField.setEditable(false);
+                disPalyPanelVector.get(2).textField.setEditable(false);
+                disPalyPanelVector.get(3).textField.setEditable(false);
                 table.setRowSelectionInterval(tableModel.getRowCount() - 1, tableModel.getRowCount() - 1);
                 table.getSelectionModel().addListSelectionListener(d);
             }
@@ -253,9 +258,10 @@ public class InventoryManagementPanel extends JPanel {
                                 try {
                                     PreparedStatement pstmt = DataOnly.conData.con.prepareStatement("update inventoryTB set Address=?,Item_Num=?,Sell_Status=?"
                                             + " where Inventory_Id=?");
-                                    for (int i = 1; i < itemStrings.size() - 1; i++) {
-                                        pstmt.setString(i, itemStrings.get(i + 1));
-                                    }
+                                    
+                                    pstmt.setString(1, itemStrings.get(4));
+                                    pstmt.setString(2, itemStrings.get(5));
+                                    pstmt.setString(3, itemStrings.get(6));
                                     pstmt.setString(4, itemStrings.get(0));
                                     pstmt.executeUpdate();
                                     upPanel.remove(oldPanel);
@@ -297,6 +303,8 @@ public class InventoryManagementPanel extends JPanel {
                     }
                     disPalyPanelVector.get(0).textField.setEditable(false);
                     disPalyPanelVector.get(1).textField.setEditable(false);
+                    disPalyPanelVector.get(2).textField.setEditable(false);
+                    disPalyPanelVector.get(3).textField.setEditable(false);
                     table.getSelectionModel().addListSelectionListener(d);
                 }
             }
@@ -384,6 +392,8 @@ public class InventoryManagementPanel extends JPanel {
                             Vector<String> v = new Vector<>();
                             v.add(res.getString("Inventory_Id"));
                             v.add(res.getString("Item_Id"));
+                            v.add(res.getString("Item_NameCN"));
+                            v.add(res.getString("Item_NameEN"));
                             v.add(res.getString("Address"));
                             v.add(res.getString("Item_Num"));
                             v.add(res.getString("Sell_Status"));
@@ -399,7 +409,7 @@ public class InventoryManagementPanel extends JPanel {
             this.add(btn);
             this.setVisible(true);
             try {
-                pstmt = DataOnly.conData.con.prepareStatement("select * from inventoryTB where Inventory_Id like ? and Item_Id like ? and Address like ? and Item_Num like ? and Sell_Status like ?");
+                pstmt = DataOnly.conData.con.prepareStatement(" select * from inventoryTB a inner join ItemDetailTB b on a.Item_Id=b.Item_Id where a.Inventory_Id like ? and a.Item_Id like ? and a.Address like ? and a.Item_Num like ? and a.Sell_Status like ?");
 
             } catch (SQLException ex) {
                 Logger.getLogger(CompanyPanel.class.getName()).log(Level.SEVERE, null, ex);
