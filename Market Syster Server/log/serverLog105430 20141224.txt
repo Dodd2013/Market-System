@@ -1,0 +1,10 @@
+10:50:44 2014-12-24:The server is  on!！
+10:50:44 2014-12-24:Waiting for the connection！
+10:50:48 2014-12-24:Waiting for the connection！
+10:50:58 2014-12-24:UserName:DoddLogin！
+10:51:17 2014-12-24:UserName:DoddExit!
+10:51:20 2014-12-24:Waiting for the connection！
+10:52:03 2014-12-24:UserName:AllenLogin！
+10:52:21 2014-12-24:UserName:AllenExit!
+10:54:29 2014-12-24:The server is  off!！
+
