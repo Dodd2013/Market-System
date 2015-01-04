@@ -22,9 +22,9 @@ import java.util.Hashtable;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.Action;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
@@ -52,7 +52,7 @@ public class InventoryEMPPanel extends JPanel {
     public JTable table;
     public DefaultTableModel tableModel;
     public TableModel model;
-    int itemNum = 4;
+    int itemNum = 7;
 
     public InventoryEMPPanel() {
         disPalyPanelVector = new Vector<>();
@@ -72,14 +72,25 @@ public class InventoryEMPPanel extends JPanel {
         upPanel.add(separator1);
         upPanel.add(editPanel, BorderLayout.SOUTH);
         itemStrings = new String[]{
+            GetLanguageName.getName("inventoryId"),
             GetLanguageName.getName("itemId"),
+            GetLanguageName.getName("itemNameCN"),
+            GetLanguageName.getName("itemNameEN"),
             GetLanguageName.getName("address"),
             GetLanguageName.getName("itemNum"),
             GetLanguageName.getName("sellStatus")
         };
         for (int i = 0; i < itemNum; i++) {
             disPalyPanelVector.add(new DisPlayPanel(itemStrings[i] + ":", DisPlayPanel.isDis));
-            editPanel.add(disPalyPanelVector.get(i));
+            final DisPlayPanel disPlayPanel = disPalyPanelVector.get(i);
+            final int j = i;
+            editPanel.add(disPlayPanel);
+            disPalyPanelVector.get(i).textField.addKeyListener(new KeyAdapter() {
+
+                public void keyReleased(KeyEvent e) {
+                    table.setValueAt(disPlayPanel.textField.getText(), table.getSelectedRow(), j);
+                }
+            });
         }
 
         searchbtn = new JButton(GetLanguageName.getName("searchBtn"));
@@ -116,6 +127,7 @@ public class InventoryEMPPanel extends JPanel {
 
             }
         });
+
     }
 
     private class SelectDig extends JDialog {
@@ -133,11 +145,13 @@ public class InventoryEMPPanel extends JPanel {
             this.setLayout(new FlowLayout(FlowLayout.LEFT));
             this.setFocusable(true);
             itemStrings = new String[]{
+                GetLanguageName.getName("inventoryId"),
                 GetLanguageName.getName("itemId"),
                 GetLanguageName.getName("address"),
                 GetLanguageName.getName("itemNum"),
-                GetLanguageName.getName("sellStatus"),};
-            for (int i = 0; i < 4; i++) {
+                GetLanguageName.getName("sellStatus")
+            };
+            for (int i = 0; i < 5; i++) {
                 disPlayPanels.add(new DisPlayPanel(itemStrings[i] + ":", DisPlayPanel.isSelect));
                 this.add(disPlayPanels.get(i));
                 y(disPlayPanels.get(i));
@@ -155,7 +169,7 @@ public class InventoryEMPPanel extends JPanel {
 
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    for (int i = 0; i < 4; i++) {
+                    for (int i = 0; i < 5; i++) {
                         f(disPlayPanels.get(i), i + 1);
                     }
                     try {
@@ -167,7 +181,10 @@ public class InventoryEMPPanel extends JPanel {
                         table.validate();
                         for (int i = 0; res.next(); i++) {
                             Vector<String> v = new Vector<>();
+                            v.add(res.getString("Inventory_Id"));
                             v.add(res.getString("Item_Id"));
+                            v.add(res.getString("Item_NameCN"));
+                            v.add(res.getString("Item_NameEN"));
                             v.add(res.getString("Address"));
                             v.add(res.getString("Item_Num"));
                             v.add(res.getString("Sell_Status"));
@@ -183,7 +200,7 @@ public class InventoryEMPPanel extends JPanel {
             this.add(btn);
             this.setVisible(true);
             try {
-                pstmt = DataOnly.conData.con.prepareStatement("select * from inventoryTB where Item_Id like ? and Address like ? and Item_Num like ? and Sell_Status like ?");
+                pstmt = DataOnly.conData.con.prepareStatement(" select * from inventoryTB a inner join ItemDetailTB b on a.Item_Id=b.Item_Id where a.Inventory_Id like ? and a.Item_Id like ? and a.Address like ? and a.Item_Num like ? and a.Sell_Status like ?");
 
             } catch (SQLException ex) {
                 Logger.getLogger(CompanyPanel.class.getName()).log(Level.SEVERE, null, ex);
