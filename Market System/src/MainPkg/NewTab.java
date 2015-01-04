@@ -71,7 +71,7 @@ class TabPanel extends JPanel{
                 public void mouseClicked(MouseEvent e){
                     pane.remove(pane.indexOfTabComponent(TabPanel.this));
                     if (pane.getTabCount()==0) {
-                       // pane.addTab("空", null);
+                        //pane.addTab("空", new NagPanel());
                     }
                 }
             });

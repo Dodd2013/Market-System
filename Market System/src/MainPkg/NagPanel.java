@@ -6,10 +6,14 @@
 
 package MainPkg;
 
+import javax.swing.JPanel;
+
 /**
  *
  * @author QDU-01
  */
-public class NagPanelEMP {
-    
+public class NagPanel extends JPanel{
+    public void NagPanel(){
+        
+    }
 }

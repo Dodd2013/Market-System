@@ -177,7 +177,7 @@ public class MainFrame {
         
         //init Jtabbed
         jTabbedPane=new JTabbedPane();
-        
+        jTabbedPane.addTab("Navigation", new NagPanel());
         jTabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
         rightUpjPanel.add(jTabbedPane);
         //setvisible
