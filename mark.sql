@@ -31,7 +31,38 @@ Per_Remarks varchar(80)  null
  password varchar(50) not null,
  Emp_Id varchar(4) foreign key references EmployeeTB not null
  )
- select * from usersTB
+  -------------------------------------------------------------------------------
+ create table ItemDetailTB(  --销售商品表
+ Item_Id int primary key identity(1,1) not null,
+ Item_NameCN varchar(50) not null,
+ Item_NameEN varchar(50) not null,
+ supplier varchar(50) null,
+ descriptions varchar(300) null,
+ price int not null
+ )
+ 
+ create table inventoryTB(  --库存表 
+	Inventory_Id int primary key identity(1,1) not null,
+	Item_Id int references ItemDetailTB not null,
+	Address varchar(50) not null,
+	Item_Num int not null ,
+	Sell_Status varchar(10) not null check(Sell_Status ='putaway' or Sell_Status ='sold out')
+ )
+
+ create table sellTB(  --销售表
+ sell_Id int primary key identity(1,1) not null,
+ customer_Name varchar(50) not null,
+ sell_Date date not null,
+ money_Sum int not null,
+ Emp_Id varchar(4) foreign  key references EmployeeTB(Emp_Id) not null
+ )
+ create table sellDetailTB(  --销售详细表
+	sell_Id int references sellTB not null,
+	Item_Id int references ItemDetailTB not null,
+	item_Num int not null check(item_Num>0),
+	money_Sum int not null
+ )
+ ----------------------------------------------------------------------------------------------
  insert into EmployeeTB values ('E001','Dodd','Dodd','man','1995-09-25','15066817901','291106637@qq.com','青大汇园二号',getdate())
  insert into usersTB values('Dodd','3d4f2bf07dc1be38b20cd6e46949a1071f9d0e3d','E001')
  insert into ModelTB values (1001,'EMP Management','100EMP','增删改查')
@@ -63,36 +94,5 @@ Per_Remarks varchar(80)  null
 
  ------------------------------------------------------
  insert into ItemDetailTB values('笔','pen','晨光','晨光牌黑笔',2)
-  insert into inventoryTB values( 1,'货架一',2,'putaway')
-   insert into sellTB values('Dodd','2014-05-06',50,'E001')
- -------------------------------------------------------------------------------
- create table ItemDetailTB(  --销售商品表
- Item_Id int primary key identity(1,1) not null,
- Item_NameCN varchar(50) not null,
- Item_NameEN varchar(50) not null,
- supplier varchar(50) null,
- descriptions varchar(300) null,
- price int not null
- )
- 
- create table inventoryTB(  --库存表 
-	Inventory_Id int primary key identity(1,1) not null,
-	Item_Id int references ItemDetailTB not null,
-	Address varchar(50) not null,
-	Item_Num int not null ,
-	Sell_Status varchar(10) not null check(Sell_Status ='putaway' or Sell_Status ='sold out')
- )
-
- create table sellTB(  --销售表
- sell_Id int primary key identity(1,1) not null,
- customer_Name varchar(50) not null,
- sell_Date date not null,
- money_Sum int not null,
- Emp_Id varchar(4) foreign  key references EmployeeTB(Emp_Id) not null
- )
- create table sellDetailTB(  --销售详细表
-	sell_Id int references sellTB not null,
-	Item_Id int references ItemDetailTB not null,
-	item_Num int not null check(item_Num>0),
-	money_Sum int not null
- )
+ insert into inventoryTB values( 1,'货架一',2,'putaway')
+ insert into sellTB values('Dodd','2014-05-06',50,'E001')
