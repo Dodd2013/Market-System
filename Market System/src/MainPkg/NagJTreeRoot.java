@@ -17,17 +17,17 @@ import javax.swing.tree.DefaultMutableTreeNode;
 public class NagJTreeRoot extends DefaultMutableTreeNode{
     public NagJTreeRoot() {
         super(DataOnly.sysName,true);
-        PkgClass p=null;
+        String gString="";
         DefaultMutableTreeNode parent=new DefaultMutableTreeNode();
         if(!DataOnly.jutisArrayList.isEmpty()){
-           p =DataOnly.jutisArrayList.get(0);
-            parent=new DefaultMutableTreeNode(p.moduleGoup);
+           gString =DataOnly.jutisArrayList.get(0).moduleGoup;
+            parent=new DefaultMutableTreeNode(gString);
             add(parent);
         }
         for (PkgClass t : DataOnly.jutisArrayList) {
-            if(!p.moduleGoup.equals(t.moduleGoup)){
-                p.moduleGoup=t.moduleGoup;
-                parent=new DefaultMutableTreeNode(p.moduleGoup);
+            if(!gString.equals(t.moduleGoup)){
+                gString=t.moduleGoup;
+                parent=new DefaultMutableTreeNode(gString);
                 add(parent);
             }
             DefaultMutableTreeNode treeNode=new DefaultMutableTreeNode(t.id+t.Name);
