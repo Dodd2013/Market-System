@@ -138,7 +138,7 @@ public class InventoryEMPPanel extends JPanel {
         private String[] itemStrings;
 
         public SelectDig() {
-            super(DataOnly.mainFrame.maF, GetLanguageName.getName("searchBtn"),true);
+            super(DataOnly.mainFrame.maF, GetLanguageName.getName("searchBtn"));
             this.setSize(750, 200);
             this.setResizable(false);
             this.setLocationRelativeTo(null);
