@@ -521,7 +521,7 @@ public class CompanyPanel extends JPanel{
         public DisPanelSon cmpidPanel,nameCNPanel,nameENPanel,cityPanel,addressCNPanel,addressENPanel,frontTelPanel;
         public JButton btn;
         public SelectDig(JFrame j){
-            super(j, "查询");
+            super(j, "查询",true);
             this.setSize(750,200);
             this.setResizable(false);
             this.setLocationRelativeTo(null);

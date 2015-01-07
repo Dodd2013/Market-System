@@ -344,7 +344,7 @@ public class EmpManagementPanel extends JPanel {
         private String[] itemStrings;
 
         public SelectDig() {
-            super(DataOnly.mainFrame.maF, GetLanguageName.getName("searchBtn"));
+            super(DataOnly.mainFrame.maF, GetLanguageName.getName("searchBtn"),true);
             this.setSize(750, 200);
             this.setResizable(false);
             this.setLocationRelativeTo(null);
