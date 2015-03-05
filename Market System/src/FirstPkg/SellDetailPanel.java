@@ -180,6 +180,30 @@ public class SellDetailPanel extends JPanel {
         });
         btnPanel.add(newbtn);
         delbtn = new JButton(GetLanguageName.getName("deleteBtn"));
+        delbtn.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (sellPanel.newAndUpdata) {
+                    if (table.getSelectedRow() != -1) {
+                        if (JOptionPane.showConfirmDialog(DataOnly.mainFrame.maF, GetLanguageName.getName("delete"), "提示",
+                                JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE) == 0) {
+                            try {
+                                PreparedStatement pstmt = DataOnly.conData.con.prepareStatement("Delete from sellDetailTB where sell_Id=? and Item_Id=?");
+                                pstmt.setString(1, (String) tableModel.getValueAt(table.convertRowIndexToModel(table.getSelectedRow()), 3));
+                                pstmt.setString(2, (String) tableModel.getValueAt(table.convertRowIndexToModel(table.getSelectedRow()), 0));
+                                pstmt.executeUpdate();
+                                tableModel.removeRow(table.convertRowIndexToModel(table.getSelectedRow()));
+                            } catch (SQLException ex) {
+                                JOptionPane.showMessageDialog(btnPanel, ex.getMessage());
+                            }
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(DataOnly.mainFrame.maF, GetLanguageName.getName("chose"));
+                    }
+                }
+            }
+        });
         btnPanel.add(delbtn);
         updatabtn = new JButton(GetLanguageName.getName("updataBtn"));
         btnPanel.add(updatabtn);

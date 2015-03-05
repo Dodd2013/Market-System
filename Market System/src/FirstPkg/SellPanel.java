@@ -207,7 +207,7 @@ public class SellPanel extends JPanel {
         });
         btnPanel.add(newbtn);
         delbtn = new JButton(GetLanguageName.getName("deleteBtn"));
-         delbtn.addActionListener(new ActionListener() {
+        delbtn.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -275,7 +275,7 @@ public class SellPanel extends JPanel {
                                     for (int i = 1; i < itemStrings.size(); i++) {
                                         pstmt.setString(i, itemStrings.get(i));
                                     }
-                                    pstmt.setString(4, itemStrings.get(0));
+                                    pstmt.setString(5, itemStrings.get(0));
                                     pstmt.executeUpdate();
                                 } catch (SQLException ex) {
                                     JOptionPane.showMessageDialog(btnPanel, ex.getMessage());
